@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage{url}
+\title{Lectures On Class Field Theory}
+\author{Tamás Szamuely, notes by Francesco Minnocci}
+\date{}
+
+\input{SetupENG}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Un peu d'histoire}
+This course will be about number fields (i.e. finite extensions $K|\Q$) and their absolute Galois groups $G_K = \Gal(\overline{K}|K)$, where $\overline{K}$ is a fixed algebraic closure of $K$. Very little is known about the structure of such automorphism groups in general, and a large chunk of modern number theory/arithmetic geometry is devoted to studying them, e.g. via their representations. In some sense, class field theory consists in the study of its $1$-dimensional representations; more precisely, it describes the abelianization $G_K^{\ab} = G_K/[G_K,G_K]$ of the absolute Galois group, or equivalently its abelian quotients.
+
+\subsection{Reciprocity laws}
+Let $p$ be a prime number, and let $a$ be an integer coprime to $p$. The \emph{Legendre symbol} $\legendre{a}{p}$ is defined as
+\[
+    \legendre{a}{p} = \begin{cases}
+        1 & \text{if $a$ is a square modulo $p$},\\
+        -1 & \text{if $a$ is not a square modulo $p$}.
+    \end{cases}
+\]
+\textbf{Euler} proved that $\legendre{a}{p} = a^{\frac{p-1}{2}} \mod p$, and \textbf{Gauss} proved the following law:
+\begin{thm}[Quadratic reciprocity]
+Let $a\ne b$ be different odd primes. Then,
+\[
+    \legendre {a}{b}\cdot\legendre{b}{a} = (-1)^{\frac{a-1}{2}\frac{b-1}{2}}.
+\]
+Morever, the following subsidiary laws hold:
+\begin{enumerate}
+    \item $\legendre{-1}{p} = (-1)^{\frac{p-1}{2}}$;
+    \item $\legendre{2}{p} = (-1)^{\frac{p^2-1}{8}}$.
+\end{enumerate}
+\end{thm}
+These laws, together with its multiplicativity in the parameter $a$, make it possible to compute the Legendre symbol.
+
+Another way of thinking about class field theory is as an attempt to define a ``very general'' reciprocity law, from which the quadratic reciprocity law and its higher degree analogues can be deduced. One such generalization is \textbf{Hilbert}'s reciprocity law: recall that $\Q$ embeds into the $p$-adic field $\Q_p$ for every prime $p$, and also into the real numbers $\Q_\infty\coloneqq\R$.
+For every prime $p$ (including $p=\infty$) and for all $a,b\in \Q^\times$, we define the \emph{Hilbert symbol} $(a,b)_p$ as
+\[
+    (a,b)_p = \begin{cases}
+        1 & \text{if $ax^2 + by^2 = 1$ has a solution in $\Q_p^2$},\\
+        -1 & \text{otherwise}.
+    \end{cases}
+\]
+
+Recall that the norm $N:\Q_p(\sqrt{a})\to \Q_p$ is defined as $N(x+y\sqrt{a}) = x^2 - ay^2$ if $a\notin \Q_p^{\times 2}$, and as $N=\id$ otherwise. More generally, if $L|K$ is a finite Galois extension with group $G$, the norm $N_{L|K}:L\to K$ is
+\[
+    N(x)=\prod_{\sigma\in G} \sigma(x)
+\]
+\begin{lem}
+        The following statements are equivalent:
+        \begin{enumerate}
+            \item $(a,b)_p = 1$;
+            \item The quadratic equation $z^2 - ax^2 - by^2 = 0$ has a non-trivial solution;
+            \item $a\in \Q_p$ is the norm of an element of $\Q_p(\sqrt{b})$.
+            \item $b\in \Q_p$ is the norm of an element of $\Q_p(\sqrt{a})$.
+        \end{enumerate}
+\end{lem}
+\begin{proof}
+        For $2\implies 3$, if $b\in \Q_p^{\times 2}$, then we are done. Otherwise, 
+        % TODO
+\end{proof}
+For $p\ne 2, \infty$ and $a,b\in\Z$, write
+$a=p^{v_p(a)}u$ and $b=p^{v_p(b)}v$ with $p\nmid uv$. The relation between the Hilbert symbol and the Legendre symbol is
+\begin{align}
+    (a,b)_p
+    &= (-1)^{\frac{p-1}{2}v_p(a)v_p(b)}
+    \legendre{u}{p}^{v_p(b)}\legendre{v}{p}^{v_p(a)} \\
+    &= \overline{(-1)^{v_p(a)v_p(b)}a^{v_p(b)}b^{-v_p(a)}}^{(p-1)/2}.
+\end{align}
+where the bar denotes reduction modulo $p$.
+In particular, if $p$ does not divide $a$, then $(a,b)_p = \legendre{a}{p}^{v_p(b)}$ coincides with the Legendre symbol.
+\begin{thm}[Hilbert reciprocity law]
+For all $a,b\in \Q^\times$, we have
+\[
+    \prod_{p} (a,b)_p = 1
+\]
+\end{thm}
+As for computation, one shows that if $p$ does not divide $2ab$ (including $p=\infty$ for $a,b>0$), then $(a,b)_p = 1$. Moreover, $(a,b)_2=(-1)^{\frac{a-1}{2}\frac{b-1}{2}}$ for odd $a,b$. From this and multiplicativity in the first variable, we immediately deduce the quadratic reciprocity law by taking $a,b$ to be odd primes.
+
+An advantage of this formulation is that it generalizes to number fields $K$, by considering the completions of $K$ at all of its (finite and infinite) ``places''. Hilbert then went on to pose his 9th problem, in which he asked for a generalization of this law to $n$-th powers in arbitrary number fields; this is what class field theory achieves. We first consider the case of extensions which contain a primitive $n$-th root of unity:
+
+\subsection{Kummer case}
+Assume now $K|\Q$ is a finite extension such that $\mu_n\subset K$, and let $\OO_K$ be its ring of integers. If $P\subset \OO_K$ is a prime ideal, we would like to define a symbol $(a,b)_P\in \mu_n$ such that a product formula holds, i.e. 
+\[
+    \prod_{P} (a,b)_P = 1
+\]
+if $a,b\in K^\times$. Moreover, for $P$ finite (which is always the case for $n\ne 2$) which does not divide $(n)$ we shall have \[
+(a,b)_P = \overline{(-1)^{v_P(a)v_P(b)}a^{v_P(b)}b^{-v_P(a)}}^{(q-1)/n},\] where $q = \#(\OO_K/P)$. In particular, if $P$ does not divide $(a)$, then $(a,b)_P = a^{\frac{q-1}{n}v_P(b)}\mod P$.
+
+So, if $v_P(b)=1$, then 
+\[
+    \legendre{a}{P} \coloneqq (a,b)_P
+\]
+does not depend on the choice of $b$ and it is the unique $n$-th root of unity, that is $a^{\frac{q-1}{n}}\mod P$; in other words, $\legendre{a}{P} = 1$ if and only if $x^n =a \mod P$ has a solution. Some more properties of this symbol are:
+\begin{enumerate}
+    \item $(a,b)_P=1 \iff$ $b$ is a norm from $K_P(\sqrt[n]{a}) \iff$ $a$ is a norm from $K_P(\sqrt[n]{b})$;
+    \item $(a,b)_P$ is multiplicative in both variables and anticommutative;
+\end{enumerate}
+
+When $\mu_n$ is \textit{not} contained in $K_P$, an ``Hilbert'' symbol still exists but is longer associated to $a,b\in K^\times$. Suppose for a moment that $\mu_n\subset K_P$. Then, the extension $K_P(\sqrt[n]{a})|K_P$ is Galois for all $a\notin K_P^{\times n}$, and its Galois group is 
+\[
+    G_a\coloneqq\Gal(K_P(\sqrt[n]{a})|K_P) \cong \Z/n\Z
+\]
+Then, the group $ \Hom(G_a,\mu_n)\cong \Z/n\Z$ is generated by the character
+\[
+    \overline{\chi_a}:\sigma\mapsto \frac{\sigma(\sqrt[n]{a})}{\sqrt[n]{a}}\in \mu_n \cong \Z/n\Z.
+\]
+In general, we shall construct a generalized Hilbert symbol
+\begin{align*}
+    \Hom\left(\Gal(\overline{K_P}|K_P),\Z/n\Z\right) \times K_P^\times &\to \Z/n\Z,\\
+    [\chi,b]&\mapsto (\chi,b)_P    
+\end{align*}
+    
+and we'll thus be able to prove the \textbf{Artin} reciprocity law: fix some $b\in K^\times$, and suppose that $\chi$ is a character in $\Hom(G_K,\Z/n\Z)$. Then
+\[
+    \sum_P (\chi_P,b)=0,
+\]
+where $\chi_P$ is the restriction of $\chi$ to $G_{K_P}^\ab$ (recall that it embeds into $G_K^\ab$).
+
+The generalized Hilbert symbol defines a reciprocity map
+\[
+    K_P^\times \to G_{K_P}^\ab,
+\]
+which is ``almost'' an isomorphism. In particular, for every $n$ we'll have an isomorphism of finite groups
+\[
+    K_P^\times/n \to G_{K_P}^\ab/n.
+\]
+To define such a map, it's enough to define the dual map
+\begin{align*}
+        \Hom(G_{K_P}^\ab/n,\Z/n\Z) &\to \Hom(K_P^\times/n,\Z/n\Z),\\
+        [\chi]&\mapsto [b\mapsto (\chi,b)_P].
+\end{align*}
+
+\begin{thebibliography}{9}
+    \bibitem{milne} James S. Milne, \ldots
+\end{thebibliography}
+
+\end{document}

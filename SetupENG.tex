@@ -1,0 +1,264 @@
+\usepackage{graphicx} % Required for inserting images
+\usepackage[english]{babel}
+\usepackage[a4paper]{geometry}
+%\usepackage{fancyhdr}
+\usepackage[position=top]{subfig}
+%\usepackage{multirow}
+%\usepackage{lipsum}
+%\usepackage{titlesec}
+%\usepackage{multicol}
+\usepackage{setspace}
+%\usepackage{enumitem}
+%\usepackage{lipsum}
+%\usepackage{rank-2-roots} %!!!!
+\usepackage{calc}
+\usepackage{enumerate}
+\usepackage{centernot}
+\usepackage{comment}
+%\usepackage{microtype}
+%\usepackage{todonotes}
+%\usepackage{aeguill} %virgolette francesi
+\usepackage{imakeidx}
+\usepackage{faktor} %quozienti
+\usepackage{stmaryrd} % simboli aggiuntivi
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    %filecolor=black,
+    linkcolor=blue,
+    urlcolor=black
+}
+
+% Teoremi e simboli
+\usepackage{amsmath}
+\usepackage{yhmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+%\usepackage{wasysym}
+%\usepackage{thmtools}
+% extensible arrows
+\usepackage{extarrows}
+
+%Box
+\newsavebox{\boiteencadrement}
+\newenvironment{encadrement}[1][gray!15]
+{\par\addvspace{\topsep+10pt}%
+    \def\couleurencadrement{#1}%
+    \begin{lrbox}{\boiteencadrement}%
+        \begin{minipage}{\linewidth-6\fboxsep-1pt}%
+            }
+            {\end{minipage}\end{lrbox}%
+    \noindent\begin{tikzpicture}[
+            inner sep=8pt,
+            line width=0.75pt]
+        \node[rounded corners = 5pt,
+            draw,
+            color=black,
+            fill=\couleurencadrement] {\usebox{\boiteencadrement}};
+    \end{tikzpicture}%
+    \par\addvspace{\topsep+10pt}%
+}
+
+%Equazioni
+\numberwithin{equation}{section}
+
+%Teoremi
+\theoremstyle{plain}
+
+%\newtheorem{lem}[thm]{Lemma}
+%\newtheorem{exer}[thm]{Esercizio}
+%\newtheorem{cor}[thm]{Corollary}
+
+\theoremstyle{definition}
+
+\newcounter{thm}
+\counterwithin{thm}{section}
+
+%thm
+\newtheorem{pretrm}[thm]{Theorem}
+\newenvironment{thm}{\begin{encadrement}\begin{pretrm}}{\end{pretrm}\end{encadrement}}
+
+%\newtheorem{defn}[thm]{Definition}
+%\newcounter{defn}
+%def
+\newtheorem{predef}[thm]{Definition}
+\newenvironment{defn}{\begin{encadrement}\begin{predef}}{\end{predef}\end{encadrement}}
+%prop
+\newtheorem{preprop}[thm]{Proposition}
+\newenvironment{prop}{\begin{encadrement}\begin{preprop}}{\end{preprop}\end{encadrement}}
+%cor
+\newtheorem{precor}[thm]{Corollary}
+\newenvironment{cor}{\begin{encadrement}\begin{precor}}
+            {\end{precor}\end{encadrement}}
+%lem
+\newtheorem{prelem}[thm]{Lemma}
+\newenvironment{lem}{\begin{encadrement}\begin{prelem}}{\end{prelem}\end{encadrement}}
+%conj
+\newtheorem{preconj}[thm]{Conjecture}
+\newenvironment{conj}{\begin{encadrement}\begin{preconj}}{\end{preconj}\end{encadrement}}
+%
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exer}[thm]{Exercise}
+\newtheorem{rmk}[thm]{Remark}
+\newtheorem*{rmk*}{Remark}
+\newtheorem{facts}[thm]{Facts}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{constr}[thm]{Construction}
+\newtheorem*{notat}{Notation}
+\newtheorem*{note}{Note}
+
+
+% Colonne
+\usepackage{multicol}
+\setlength\columnsep{20pt}
+\setlength{\columnseprule}{0,5pt}
+
+%% Comandi e operatori
+\newcommand{\G}{\Gamma}
+
+% No white line in equal arrows
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+                    mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+                            \coordinate (ta-base-2) at (0,-1pt);},
+                    mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+                            \draw[#2] (ta-base-2) -- (0,-1pt);
+                        }}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+% mathbf
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\QQ}{\overline{\mathbf{Q}}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\K}{K}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\E}{\mathbf{E}}
+% abelianization
+\newcommand{\ab}{\text{ab}}
+
+
+% mathcal
+\newcommand{\A}{\mathbf{A}}
+\renewcommand{\AA}{\mathcal{A}}
+\newcommand{\Sn}{\mathcal{S}_n}
+\newcommand{\D}{\mathcal{D}}
+
+\newcommand{\OO}{\mathcal{O}}
+\renewcommand{\F}{\mathcal{F}}
+%\renewcommand{\H}{\mathcal{H}}
+
+% mathfrak
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\U}{\mathfrak{U}}
+\newcommand{\gl}{\mathfrak{gl}}
+
+
+\newcommand{\m}{\mathfrak{m}}
+
+%For chapter 3
+\newcommand{\cc}{\mathdutchcal{c}}
+
+
+\renewcommand{\sl}{\mathfrak{sl}}
+\renewcommand{\sp}{\mathfrak{sp}}
+
+
+% math operator
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Out}{Out}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\GL}{GL}
+%\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\tr}{tr}
+%new
+\DeclareMathOperator{\car}{char}
+\DeclareMathOperator{\Fib}{Fib}
+%\DeclareMathOperator{\dep}{dep}
+% \legendre{a}{p}
+\newcommand{\legendre}[2]{\left(\frac{#1}{#2}\right)}
+\renewcommand{\d}{\text{d}}
+
+\newcommand\Iso{\xrightarrow{
+        \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+\newcommand\restrict[1]{\raisebox{-.5ex}{$|$}_{#1}}
+
+% Display math
+\newcommand{\ssfrac}[2]{
+    \raisebox{+0.3ex}{$#1$}
+    /
+    \raisebox{-0.3ex}{$#2$}
+}
+% Inline math
+\newcommand{\sfrac}[2]{
+    \raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+    /
+    \raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+% boldsymbol
+
+\renewcommand{\r}{{\boldsymbol{r}}}
+\renewcommand{\k}{{k}}
+\newcommand{\h}{{\boldsymbol{h}}}
+\newcommand{\x}{{\boldsymbol{x}}}
+\newcommand{\0}{{\boldsymbol{0}}}
+\newcommand{\s}{{\boldsymbol{s}}}
+\renewcommand{\t}{{\boldsymbol{t}}}
+\newcommand{\e}{{\boldsymbol{e}}}
+%map A_r
+%\newcommand{\AR}{{\A}_{\r}}
+
+
+
+
+\newcommand{\tn}{{\otimes n}}
+\newcommand{\tens}{\otimes \ldots \otimes}
+\newcommand{\n}[1]{\left\lVert #1 \right\lVert}
+\newcommand{\res}[1]{\raisebox{-.5ex}{$|$}_{#1}}
+
+%Elliptic curves
+
+\renewcommand{\P}{\mathbf{P}}
+\renewcommand{\S}{\operatorname{S}}
+\newcommand{\OX}{\OO_{X,P}}
+\DeclareMathOperator{\divv}{div}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Div}{Div}
+\renewcommand{\L}{\mathscr{L}}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\PP}{\mathfrak{P}}
+\DeclareMathOperator{\Sel}{Sel}
+\newcommand{\Selm}{\Sel^{(m)}}
+
+%Galois groups and fundamental groups
+\newcommand{\M}{\mathcal{M}}
+% tr deg
+\DeclareMathOperator{\trdeg}{tr.deg}
+% spec
+\DeclareMathOperator{\Spec}{Spec}
+% frac
+\DeclareMathOperator{\Frac}{Frac}
