@@ -123,6 +123,7 @@
 \newcommand{\G}{\Gamma}
 
 % No white line in equal arrows
+\usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
                     mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
@@ -153,8 +154,6 @@
 \newcommand{\D}{\mathcal{D}}
 
 \newcommand{\OO}{\mathcal{O}}
-\renewcommand{\F}{\mathcal{F}}
-%\renewcommand{\H}{\mathcal{H}}
 
 % mathfrak
 \newcommand{\g}{\mathfrak{g}}
@@ -165,7 +164,7 @@
 \newcommand{\m}{\mathfrak{m}}
 
 %For chapter 3
-\newcommand{\cc}{\mathdutchcal{c}}
+\newcommand{\cc}{\mathcal{c}}
 
 
 \renewcommand{\sl}{\mathfrak{sl}}
@@ -247,7 +246,7 @@
 \DeclareMathOperator{\divv}{div}
 \DeclareMathOperator{\Pic}{Pic}
 \DeclareMathOperator{\Div}{Div}
-\renewcommand{\L}{\mathscr{L}}
+\renewcommand{\L}{\mathcal{L}}
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
 \newcommand{\p}{\mathfrak{p}}
 \newcommand{\PP}{\mathfrak{P}}

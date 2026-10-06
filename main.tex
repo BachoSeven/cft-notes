@@ -15,130 +15,323 @@
 \newpage
 
 \section{Un peu d'histoire}
-This course will be about number fields (i.e. finite extensions $K|\Q$) and their absolute Galois groups $G_K = \Gal(\overline{K}|K)$, where $\overline{K}$ is a fixed algebraic closure of $K$. Very little is known about the structure of such automorphism groups in general, and a large chunk of modern number theory/arithmetic geometry is devoted to studying them, e.g. via their representations. In some sense, class field theory consists in the study of its $1$-dimensional representations; more precisely, it describes the abelianization $G_K^{\ab} = G_K/[G_K,G_K]$ of the absolute Galois group, or equivalently its abelian quotients.
+We start with some motivation: this course will be about number fields (i.e. finite extensions $K|\Q$) and their absolute Galois groups $G_K = \Gal(\overline{K}|K)$, where $\overline{K}$ is a fixed algebraic closure of $K$. Very little is known about the structure of such automorphism groups in general, and a large chunk of modern number theory/arithmetic geometry is devoted to studying them, e.g. via their representations. In some sense, class field theory consists in the study of its $1$-dimensional representations; more precisely, it describes the abelianization $G_K^{\ab} = G_K/[G_K,G_K]$ of the absolute Galois group (equivalently, of its abelian quotients).
 
 \subsection{Reciprocity laws}
 Let $p$ be a prime number, and let $a$ be an integer coprime to $p$. The \emph{Legendre symbol} $\legendre{a}{p}$ is defined as
 \[
-    \legendre{a}{p} = \begin{cases}
-        1 & \text{if $a$ is a square modulo $p$},\\
-        -1 & \text{if $a$ is not a square modulo $p$}.
-    \end{cases}
+	\legendre{a}{p} = \begin{cases}
+		1  & \text{if $a$ is a square modulo $p$},     \\
+		-1 & \text{if $a$ is not a square modulo $p$}.
+	\end{cases}
 \]
-\textbf{Euler} proved that $\legendre{a}{p} = a^{\frac{p-1}{2}} \mod p$, and \textbf{Gauss} proved the following law:
+\textbf{Euler} proved that $\legendre{a}{p} = a^{\frac{p-1}{2}} \bmod p$, and \textbf{Gauss} proved the following law:
 \begin{thm}[Quadratic reciprocity]
-Let $a\ne b$ be different odd primes. Then,
-\[
-    \legendre {a}{b}\cdot\legendre{b}{a} = (-1)^{\frac{a-1}{2}\frac{b-1}{2}}.
-\]
-Morever, the following subsidiary laws hold:
-\begin{enumerate}
-    \item $\legendre{-1}{p} = (-1)^{\frac{p-1}{2}}$;
-    \item $\legendre{2}{p} = (-1)^{\frac{p^2-1}{8}}$.
-\end{enumerate}
+	Let $a\ne b$ be different odd primes. Then,
+	\[
+		\legendre {a}{b}\cdot\legendre{b}{a} = (-1)^{\frac{a-1}{2}\frac{b-1}{2}}.
+	\]
+	Morever, the following subsidiary laws hold:
+	\begin{enumerate}
+		\item $\legendre{-1}{p} = (-1)^{\frac{p-1}{2}}$;
+		\item $\legendre{2}{p} = (-1)^{\frac{p^2-1}{8}}$.
+	\end{enumerate}
 \end{thm}
 These laws, together with its multiplicativity in the parameter $a$, make it possible to compute the Legendre symbol.
 
 Another way of thinking about class field theory is as an attempt to define a ``very general'' reciprocity law, from which the quadratic reciprocity law and its higher degree analogues can be deduced. One such generalization is \textbf{Hilbert}'s reciprocity law: recall that $\Q$ embeds into the $p$-adic field $\Q_p$ for every prime $p$, and also into the real numbers $\Q_\infty\coloneqq\R$.
 For every prime $p$ (including $p=\infty$) and for all $a,b\in \Q^\times$, we define the \emph{Hilbert symbol} $(a,b)_p$ as
 \[
-    (a,b)_p = \begin{cases}
-        1 & \text{if $ax^2 + by^2 = 1$ has a solution in $\Q_p^2$},\\
-        -1 & \text{otherwise}.
-    \end{cases}
+	(a,b)_p = \begin{cases}
+		1  & \text{if $ax^2 + by^2 = 1$ has a solution in $\Q_p^2$}, \\
+		-1 & \text{otherwise}.
+	\end{cases} asd
 \]
 
 Recall that the norm $N:\Q_p(\sqrt{a})\to \Q_p$ is defined as $N(x+y\sqrt{a}) = x^2 - ay^2$ if $a\notin \Q_p^{\times 2}$, and as $N=\id$ otherwise. More generally, if $L|K$ is a finite Galois extension with group $G$, the norm $N_{L|K}:L\to K$ is
 \[
-    N(x)=\prod_{\sigma\in G} \sigma(x)
+	N(x)=\prod_{\sigma\in G} \sigma(x)
 \]
 \begin{lem}
-        The following statements are equivalent:
-        \begin{enumerate}
-            \item $(a,b)_p = 1$;
-            \item The quadratic equation $z^2 - ax^2 - by^2 = 0$ has a non-trivial solution;
-            \item $a\in \Q_p$ is the norm of an element of $\Q_p(\sqrt{b})$.
-            \item $b\in \Q_p$ is the norm of an element of $\Q_p(\sqrt{a})$.
-        \end{enumerate}
+	The following statements are equivalent:
+	\begin{enumerate}
+		\item $(a,b)_p = 1$;
+		\item The quadratic equation $z^2 = ax^2 + by^2$ has a non-trivial solution;
+		\item $a\in \Q_p$ is the norm of an element of $\Q_p(\sqrt{b})$.
+		\item $b\in \Q_p$ is the norm of an element of $\Q_p(\sqrt{a})$.
+	\end{enumerate}
 \end{lem}
 \begin{proof}
-        For $2\implies 3$, if $b\in \Q_p^{\times 2}$, then we are done. Otherwise, 
-        % TODO
+	The equivalence $1\iff 2$ is by definition; and $3\iff 4$ is clear.
+	For $2\iff 3$, if $b\in \Q_p^{\times 2}$, then we are done. Otherwise, if $b\notin \Q_p^{\times 2}$, then $N(\alpha+\beta\sqrt{b})= \alpha^2 - b\beta^2$, and if $a\coloneqq \alpha^2 - b\beta^2$ we see that $z^2 = ax^2 + by^2$ has a non-trivial solution, and vice versa.
 \end{proof}
 For $p\ne 2, \infty$ and $a,b\in\Z$, write
 $a=p^{v_p(a)}u$ and $b=p^{v_p(b)}v$ with $p\nmid uv$. The relation between the Hilbert symbol and the Legendre symbol is
 \begin{align}
-    (a,b)_p
-    &= (-1)^{\frac{p-1}{2}v_p(a)v_p(b)}
-    \legendre{u}{p}^{v_p(b)}\legendre{v}{p}^{v_p(a)} \\
-    &= \overline{(-1)^{v_p(a)v_p(b)}a^{v_p(b)}b^{-v_p(a)}}^{(p-1)/2}.
+	(a,b)_p
+	 & = (-1)^{\frac{p-1}{2}v_p(a)v_p(b)}
+	\legendre{u}{p}^{v_p(b)}\legendre{v}{p}^{v_p(a)}                    \\
+	 & = \overline{(-1)^{v_p(a)v_p(b)}a^{v_p(b)}b^{-v_p(a)}}^{(p-1)/2}.
 \end{align}
 where the bar denotes reduction modulo $p$.
 In particular, if $p$ does not divide $a$, then $(a,b)_p = \legendre{a}{p}^{v_p(b)}$ coincides with the Legendre symbol.
 \begin{thm}[Hilbert reciprocity law]
-For all $a,b\in \Q^\times$, we have
-\[
-    \prod_{p} (a,b)_p = 1
-\]
+	For all $a,b\in \Q^\times$, we have
+	\[
+		\prod_{p} (a,b)_p = 1
+	\]
 \end{thm}
 As for computation, one shows that if $p$ does not divide $2ab$ (including $p=\infty$ for $a,b>0$), then $(a,b)_p = 1$. Moreover, $(a,b)_2=(-1)^{\frac{a-1}{2}\frac{b-1}{2}}$ for odd $a,b$. From this and multiplicativity in the first variable, we immediately deduce the quadratic reciprocity law by taking $a,b$ to be odd primes.
 
 An advantage of this formulation is that it generalizes to number fields $K$, by considering the completions of $K$ at all of its (finite and infinite) ``places''. Hilbert then went on to pose his 9th problem, in which he asked for a generalization of this law to $n$-th powers in arbitrary number fields; this is what class field theory achieves. We first consider the case of extensions which contain a primitive $n$-th root of unity:
 
 \subsection{Kummer case}
-Assume now $K|\Q$ is a finite extension such that $\mu_n\subset K$, and let $\OO_K$ be its ring of integers. If $P\subset \OO_K$ is a prime ideal, we would like to define a symbol $(a,b)_P\in \mu_n$ such that a product formula holds, i.e. 
+Assume now $K|\Q$ is a finite extension such that $\mu_n\subset K$, and let $\OO_K$ be its ring of integers. If $P\subset \OO_K$ is a prime ideal, we would like to define a symbol $(a,b)_P\in \mu_n$ such that a product formula holds, i.e.
 \[
-    \prod_{P} (a,b)_P = 1
+	\prod_{P} (a,b)_P = 1
 \]
 if $a,b\in K^\times$. Moreover, for $P$ finite (which is always the case for $n\ne 2$) which does not divide $(n)$ we shall have \[
-(a,b)_P = \overline{(-1)^{v_P(a)v_P(b)}a^{v_P(b)}b^{-v_P(a)}}^{(q-1)/n},\] where $q = \#(\OO_K/P)$. In particular, if $P$ does not divide $(a)$, then $(a,b)_P = a^{\frac{q-1}{n}v_P(b)}\mod P$.
+	(a,b)_P = \overline{(-1)^{v_P(a)v_P(b)}a^{v_P(b)}b^{-v_P(a)}}^{(q-1)/n},\] where $q = \#(\OO_K/P)$. In particular, if $P$ does not divide $(a)$, then $(a,b)_P =
+	a^{\frac{q-1}{n}v_P(b)}\bmod P$.
 
-So, if $v_P(b)=1$, then 
+So, if $v_P(b)=1$, then
 \[
-    \legendre{a}{P} \coloneqq (a,b)_P
+	\legendre{a}{P} \coloneqq (a,b)_P
 \]
-does not depend on the choice of $b$ and it is the unique $n$-th root of unity, that is $a^{\frac{q-1}{n}}\mod P$; in other words, $\legendre{a}{P} = 1$ if and only if $x^n =a \mod P$ has a solution. Some more properties of this symbol are:
+does not depend on the choice of $b$ and it is the unique $n$-th root of unity, that is $a^{\frac{q-1}{n}}\bmod P$; in other words, $\legendre{a}{P} = 1$ if and only if $x^n =a \bmod P$ has a solution. Some more properties of this symbol are:
 \begin{enumerate}
-    \item $(a,b)_P=1 \iff$ $b$ is a norm from $K_P(\sqrt[n]{a}) \iff$ $a$ is a norm from $K_P(\sqrt[n]{b})$;
-    \item $(a,b)_P$ is multiplicative in both variables and anticommutative;
+	\item $(a,b)_P=1 \iff$ $b$ is a norm from $K_P(\sqrt[n]{a}) \iff$ $a$ is a norm from $K_P(\sqrt[n]{b})$;
+	\item $(a,b)_P$ is multiplicative in both variables and anticommutative;
 \end{enumerate}
 
-When $\mu_n$ is \textit{not} contained in $K_P$, an ``Hilbert'' symbol still exists but is longer associated to $a,b\in K^\times$. Suppose for a moment that $\mu_n\subset K_P$. Then, the extension $K_P(\sqrt[n]{a})|K_P$ is Galois for all $a\notin K_P^{\times n}$, and its Galois group is 
+When $\mu_n$ is \textit{not} contained in $K_P$, an ``Hilbert'' symbol still exists but is longer associated to $a,b\in K^\times$. Suppose for a moment that $\mu_n\subset K_P$. Then, the extension $K_P(\sqrt[n]{a})|K_P$ is Galois for all $a\notin K_P^{\times n}$, and its Galois group is
 \[
-    G_a\coloneqq\Gal(K_P(\sqrt[n]{a})|K_P) \cong \Z/n\Z
+	G_a\coloneqq\Gal(K_P(\sqrt[n]{a})|K_P) \cong \Z/n\Z
 \]
 Then, the group $ \Hom(G_a,\mu_n)\cong \Z/n\Z$ is generated by the character
 \[
-    \overline{\chi_a}:\sigma\mapsto \frac{\sigma(\sqrt[n]{a})}{\sqrt[n]{a}}\in \mu_n \cong \Z/n\Z.
+	\overline{\chi_a}:\sigma\mapsto \frac{\sigma(\sqrt[n]{a})}{\sqrt[n]{a}}\in \mu_n \cong \Z/n\Z.
 \]
 In general, we shall construct a generalized Hilbert symbol
 \begin{align*}
-    \Hom\left(\Gal(\overline{K_P}|K_P),\Z/n\Z\right) \times K_P^\times &\to \Z/n\Z,\\
-    [\chi,b]&\mapsto (\chi,b)_P    
+	\Hom\left(\Gal(\overline{K_P}|K_P),\Z/n\Z\right) \times K_P^\times & \to \Z/n\Z,        \\
+	[\chi,b]                                                           & \mapsto (\chi,b)_P
 \end{align*}
-    
+
 and we'll thus be able to prove the \textbf{Artin} reciprocity law: fix some $b\in K^\times$, and suppose that $\chi$ is a character in $\Hom(G_K,\Z/n\Z)$. Then
 \[
-    \sum_P (\chi_P,b)=0,
+	\sum_P (\chi_P,b)=0,
 \]
 where $\chi_P$ is the restriction of $\chi$ to $G_{K_P}^\ab$ (recall that it embeds into $G_K^\ab$).
 
 The generalized Hilbert symbol defines a reciprocity map
 \[
-    K_P^\times \to G_{K_P}^\ab,
+	K_P^\times \to G_{K_P}^\ab,
 \]
 which is ``almost'' an isomorphism. In particular, for every $n$ we'll have an isomorphism of finite groups
 \[
-    K_P^\times/n \to G_{K_P}^\ab/n.
+	K_P^\times/n \to G_{K_P}^\ab/n.
 \]
+This is one of the remarkable features of class field theory, giving a description of the abelian extensions of a field in terms of its arithmetic.
 To define such a map, it's enough to define the dual map
 \begin{align*}
-        \Hom(G_{K_P}^\ab/n,\Z/n\Z) &\to \Hom(K_P^\times/n,\Z/n\Z),\\
-        [\chi]&\mapsto [b\mapsto (\chi,b)_P].
+	\Hom(G_{K_P}^\ab/n,\Z/n\Z) & \to \Hom(K_P^\times/n,\Z/n\Z), \\
+	[\chi]                     & \mapsto [b\mapsto (\chi,b)_P].
 \end{align*}
 
+\section{Computing the Hilbert symbol}
+
+Recall the definition: for $a,b\in\Q_p^\times$,
+\[
+	(a,b)_p = \begin{cases}
+		1  & \text{if $ax^2+by^2=1$ is solvable in $\Q_p$}, \\
+		-1 & \text{otherwise}.
+	\end{cases}
+\]
+We have seen that
+\[
+	(a,b)_p = 1 \iff z^2 - ax^2 - by^2 \text{ has a non-trivial solution in } \Q_p^3 \iff b \text{ is a norm from } \Q_p(\sqrt{a}),
+\]
+where $N(x+y\sqrt{a}) = x^2 - ay^2$.
+
+\begin{thm}[Hilbert reciprocity law]\label{thm:hilbertrecip}
+	For all $a,b\in\Q^\times$,
+	\[
+		\prod_{p} (a,b)_p = 1,
+	\]
+	where the product runs over all primes $p$, including $p=\infty$.
+\end{thm}
+Note that the product is finite: $(a,b)_p=1$ for all $p\nmid 2ab$ (see Lemma~\ref{lem:units} below).
+
+\begin{lem}\label{lem:basic}
+	Let $a,b,c\in\Q_p^\times$. Then
+	\begin{enumerate}
+		\item $(1,c)_p = 1$;
+		\item $(-c,c)_p = 1$;
+		\item if $(a,c)_p = 1$, then $(ab,c)_p = (a,c)_p(b,c)_p$ (this holds in general, see the Corollary below);
+		\item $(c,c)_p = (-1,c)_p$.
+	\end{enumerate}
+\end{lem}
+\begin{proof}
+	\begin{enumerate}
+		\item Consider $N:\Q_p(\sqrt{c})\to\Q_p$. Then $N(1)=1$.
+		\item If $c\in\Q_p^{\times 2}$, then $\Q_p(\sqrt{c})=\Q_p$, the norm is the identity and $N(-c)=-c$. If $c\notin\Q_p^{\times 2}$, then $N(\sqrt{c}) = -c$. In both cases $-c$ is a norm from $\Q_p(\sqrt{c})$.
+		\item If $a=N(x)$ and $b=N(y)$, then $ab=N(x)N(y)=N(xy)$, since the norm is multiplicative by definition.
+
+		      Moreover, if $a=N(x)$, then $a^{-1}=N(x^{-1})$; if in addition $ab=N(z)$, then
+		      \[
+			      b=a^{-1}(ab)=N(x^{-1})N(z)=N(x^{-1}z).
+		      \]
+		      So, if $(a,c)_p=1$ (i.e.\ $a=N(x)$ is a norm from $\Q_p(\sqrt{c})$), then $(b,c)_p=1\iff(ab,c)_p=1$.
+		\item By (2) and (3),
+		      \[
+			      (c,c)_p = (-c,c)_p(c,c)_p = (-c^2,c)_p = (-1,c)_p,
+		      \]
+		      because in general $(ad^2,b)_p = (a,b)_p$.\qedhere
+	\end{enumerate}
+\end{proof}
+\begin{rmk}
+	Since $(ad^2,b)_p=(a,b)_p$, the Hilbert symbol is a well-defined map
+	\[
+		(\,\cdot\,,\cdot\,)_p : \left(\Q_p^\times/\Q_p^{\times 2}\right)\times\left(\Q_p^\times/\Q_p^{\times 2}\right)\to\mu_2.
+	\]
+\end{rmk}
+
+\begin{lem}\label{lem:units}
+	Let $p>2$. Then $(u,v)_p=1$ for all $u,v\in\Z_p^\times$.
+	(Recall that $\Z_p$ is local and $\Z_p^\times=\Z_p\setminus(p)$.)
+\end{lem}
+\begin{proof}
+	Let $\overline{u}\coloneqq u\bmod p$ and $\overline{v}\coloneqq v\bmod p$; they are non-zero elements of $\F_p$ (units of the local ring).
+	We first show that $1-\overline{u}x^2-\overline{v}y^2$ has a solution in $\F_p$. Since $\F_p^\times$ is cyclic of order $p-1$,
+	\[
+		\#\{x^2 : x\in\F_p\} = \frac{p+1}{2}.
+	\]
+	Similarly, if $S_{\overline{u}}\coloneqq\{\overline{u}x^2:x\in\F_p\}$ and $S_{\overline{v}}\coloneqq\{1-\overline{v}y^2 : y\in\F_p\}$, then $\#S_{\overline{u}}=\#S_{\overline{v}}=
+		\frac{p+1}{2}$.
+	Thus, $S_{\overline u}\cap S_{\overline v}\neq\emptyset$ by the
+
+	We conclude by Hensel's lemma:
+\end{proof}
+
+\begin{lem}[Hensel]
+	Let $f\in\Z_p[X]$ and $a_0\in\Z_p$ with $f(a_0)\equiv 0\mod p$ and $f'(a_0)\not\equiv 0\mod p$. Then there exists $a\in\Z_p$ with $f(a)=0$ and $a\equiv a_0\mod p$.
+\end{lem}
+This allows us to lift a solution mod $p$ to a solution in $\Z_p$ (to apply it in the proof above, we have to fix one variable).
+
+\begin{prop}\label{prop:oddp}
+	Let $p>2$ and $a,b\in\Q_p^\times$, with $a=p^\alpha u$, $b=p^\beta v$ and $u,v\in\Z_p^\times$. Then
+	\[
+		(a,b)_p = (-1)^{\alpha\beta\frac{p-1}{2}}\legendre{\overline{u}}{p}^{-\beta}\legendre{\overline{v}}{p}^{\alpha}.
+	\]
+\end{prop}
+\begin{proof}
+	Since $(a,b)_p$ depends only on $a,b \bmod \Q_p^{\times 2}$, we may assume $\alpha,\beta\in\{0,1\}$.
+	\begin{itemize}
+		\item $\alpha=\beta=0$: this is Lemma~\ref{lem:units}.
+		\item $\alpha=1$, $\beta=0$: we need $(pu,v)_p=\legendre{\overline{v}}{p}$. By Lemma~\ref{lem:units} we have $(u^{-1},v)_p=1$, hence by Lemma~\ref{lem:basic}(3)
+		      \[
+			      (pu,v)_p = (pu,v)_p\underbrace{(u^{-1},v)_p}_{=1} = (p,v)_p.
+		      \]
+		      If $v\in\Q_p^{\times 2}$, then $(p,v)_p=(p,1)_p=1=\legendre{\overline{v}}{p}$ (note that $\overline{v}$ is then also a square mod $p$).
+		      If $v\notin\Q_p^{\times 2}$, then $(p,v)_p=-1$, because $z^2-px^2-vy^2$ has no non-trivial solution mod $p$, hence none in $\Q_p$ by homogeneity; also $\legendre{\overline{v}}{p}=-1$ (by Hensel, since $v\notin\Q_p^{\times 2}$).
+		\item $\alpha=\beta=1$: we need $(pu,pv)_p=(-1)^{\frac{p-1}{2}}\legendre{\overline{u}}{p}\legendre{\overline{v}}{p}$. By Lemma~\ref{lem:basic}(2) we have $(-pv,pv)_p=1$, so by Lemma~\ref{lem:basic}(3)
+		      \[
+			      (pu,pv)_p = (pu,pv)_p\underbrace{(-pv,pv)_p}_{=1} = (-p^2uv,pv)_p = (-uv,pv)_p = (pv,-uv)_p,
+		      \]
+		      and now we are in the previous case, which gives
+		      \[
+			      (pv,-uv)_p = \legendre{\overline{-uv}}{p} = \legendre{-1}{p}\legendre{\overline{u}}{p}\legendre{\overline{v}}{p},
+		      \]
+		      where $\legendre{-1}{p}=(-1)^{\frac{p-1}{2}}$, and we used that the Legendre symbol is multiplicative.\qedhere
+	\end{itemize}
+\end{proof}
+
+\begin{cor}
+	Let $p>2$. Then $(a,c)_p(b,c)_p=(ab,c)_p$ for all $a,b,c\in\Q_p^\times$. In particular, $(\,\cdot\,,\cdot\,)_p$ is bi-multiplicative.
+\end{cor}
+\begin{proof}
+	Write $a=p^\alpha u$, $b=p^\beta v$ and $c=p^\gamma w$ with $u,v,w\in\Z_p^\times$. By Proposition~\ref{prop:oddp},
+	\begin{align*}
+		(a,c)_p(b,c)_p
+		 & = (-1)^{\frac{p-1}{2}\alpha\gamma}\legendre{\overline{u}}{p}^{\gamma}\legendre{\overline{w}}{p}^{\alpha}\cdot(-1)^{\frac{p-1}{2}\beta\gamma}\legendre{\overline{v}}{p}^{\gamma}\legendre{\overline{w}}{p}^{\beta} \\
+		 & = (-1)^{\frac{p-1}{2}\gamma(\alpha+\beta)}\legendre{\overline{uv}}{p}^{\gamma}\legendre{\overline{w}}{p}^{\alpha+\beta} = (ab,c)_p.\qedhere
+	\end{align*}
+\end{proof}
+
+\paragraph{Case $p=2$.}
+If $a=2^\alpha u$ and $b=2^\beta v$ with $u,v\in\Z_2^\times$, define
+\[
+	\varepsilon(u)\coloneqq\frac{u-1}{2}\bmod 2,\qquad \omega(u)\coloneqq\frac{u^2-1}{8}\bmod 2.
+\]
+Then
+\[
+	(a,b)_2 = (-1)^{\varepsilon(u)\varepsilon(v)+\alpha\omega(v)+\beta\omega(u)}.
+\]
+(Proof not given.) In particular, $(\,\cdot\,,\cdot\,)_p$ is bi-multiplicative for every $p$.
+\begin{proof}[Proof of Theorem \ref{thm:hilbertrecip}]
+	Using bi-multiplicativity, we reduce to the case where each of $a,b$ is either $-1$ or a prime.
+	\begin{itemize}
+		\item Case $a=-1$: homework.
+		\item Case $a=b=q$ prime: $(q,q)_p=(-1,q)_p$ by Lemma~\ref{lem:basic}(4), so we are reduced to the previous case.
+		\item Case $a=2$, $b>2$ prime: $(2,b)_p=1$ for $p\notin\{2,b\}$ (also for $p=\infty$, as $2,b>0$). Moreover, by the $p=2$ formula,
+		      \[
+			      (2,b)_2=(-1)^{\omega(b)},
+		      \]
+		      and by Proposition~\ref{prop:oddp}
+		      \[
+			      (2,b)_b=\legendre{2}{b}=(-1)^{\frac{b^2-1}{8}}.
+		      \]
+		      The product of these two factors is $1$.
+		\item Case $a\neq b$ odd primes: $(a,b)_p=1$ for $p\notin\{2,a,b\}$ (also for $p=\infty$), and
+		      \[
+			      (a,b)_p = \begin{cases}
+				      (-1)^{\frac{a-1}{2}\frac{b-1}{2}} & p=2, \\[2pt]
+				      \legendre{a}{b}                   & p=b, \\[2pt]
+				      \legendre{b}{a}                   & p=a.
+			      \end{cases}
+		      \]
+		      Hence the product is $1$ by quadratic reciprocity.\qedhere
+	\end{itemize}
+\end{proof}
+
+\section{Cohomology of groups}
+Already for the local part of theory we'll require some input from homological algebra, mainly the description of the first cohomology group $H^1(G,A)$ for $G$ some Galois group, and its interpretation in terms of crossed homomorphisms. A concise reference for this material can be found in the notes \cite{homalg}. We recall some results here for the reader's convenience:
+
+\begin{thm}[Cohomology of cyclic groups]
+	Let $G$ be a finite cyclic group of order $n$, generated by $\sigma$. Then,
+	\[
+		\begin{cases}
+			H^0(G,A) = A^G,           \\[2pt]
+			H^1(G,A) = A/(1-\sigma)A, \\[2pt]
+			H^2(G,A) = A^G/NA,        \\[2pt]
+			H^i(G,A) \cong H^{i+2}(G,A) \text{ for all } i\ge 1,
+		\end{cases}
+	\]
+\end{thm}
+This comes out of the ``periodic'' resolution of $\Z$ as a trivial $G$-module:
+\[
+	\ldots \xrightarrow{\sigma-1} \Z[G] \xrightarrow{N} \Z[G] \xrightarrow{\sigma-1} \Z[G] \xrightarrow{N} \Z[G] \xrightarrow{\varepsilon} \Z \to 0,
+\]
+where $N = 1+\sigma+\ldots+\sigma^{n-1}$ is the norm map and $\varepsilon$ sends $\sigma$ to $1$.
+A similar computation holds for the infinite cyclic group $G=\Z$:
+\[
+	H^0(\Z,A) = A^\Z,\qquad H^1(\Z,A) = A/(1-\sigma)A,\qquad H^i(\Z,A) = 0 \text{ for all } i\ge 2.
+\]
+For a subgroup $H\subset G$, we denote by
+\[M^G_H(A)\coloneqq  \Hom_H(\Z[G],A)\] the $G$-module with action
+\[
+	\sigma(\phi)(g) = \phi(\sigma^{-1}g),\qquad \sigma\in G, g\in G, \phi\in M^G_H(A).
+\]
+Then, \textit{Shapiro}'s lemma tells us that there is a canonical isomorphism
+\begin{equation}\label{eq:shapiro}
+	H^i(G,M^G_H(A)) \cong H^i(H,A).
+\end{equation}
+
+
 \begin{thebibliography}{9}
-    \bibitem{milne} James S. Milne, \ldots
+	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
+	\bibitem{homalg} Tam\'as Szamuely, \emph{Notes on homological algebra}, \url{https://pagine.dm.unipi.it/tamas/ist-alg2new.pdf}.
 \end{thebibliography}
 
 \end{document}
