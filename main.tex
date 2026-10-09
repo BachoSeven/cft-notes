@@ -283,7 +283,7 @@ Then
 			      (2,b)_b=\legendre{2}{b}=(-1)^{\frac{b^2-1}{8}}.
 		      \]
 		      The product of these two factors is $1$.
-		\item Case $a\neq b$ odd primes: $(a,b)_p=1$ for $p\notin\{2,a,b\}$ (also for $p=\infty$), and
+		\item Case $a\neq b$ odd primes: $(a,b)_p=1$ for $p\notin\{2,a,b\}$ (as well as $p=\infty$), and
 		      \[
 			      (a,b)_p = \begin{cases}
 				      (-1)^{\frac{a-1}{2}\frac{b-1}{2}} & p=2, \\[2pt]
@@ -328,6 +328,275 @@ Then, \textit{Shapiro}'s lemma tells us that there is a canonical isomorphism
 	H^i(G,M^G_H(A)) \cong H^i(H,A).
 \end{equation}
 
+\subsection{Restriction, Inflation and Corestriction}
+
+Let $H$ be a subgroup of $G$. The \emph{restriction} map is defined on cocycles as
+\[
+	\operatorname{Res}: H^i(G,A) \to H^i(H,A),\quad \operatorname{Res}([f]) = [f|_H],
+\]
+which explains the name: $f|_H$ is just restriction to $H$.
+
+For a normal subgroup $H\triangleleft G$, the quotient $G/H$ acts on $A^H$ and we have the \emph{inflation} map
+\[
+	\operatorname{Inf}: H^i(G/H,A^H) \to H^i(G,A),\quad \operatorname{Inf}([f]) = [f\circ \pi],
+\]
+where $\pi:G\to G/H$ is the canonical projection.
+
+The \emph{corestriction} map goes in the opposite direction of restriction, and is defined as follows: let $H\subset G$ be a subgroup of finite index 
+%TODO
+This is well-defined and gives a map
+\[
+	\operatorname{Cor}: H^i(H,A) \to H^i(G,A).
+\]
+
+% Insert some more material here, ending with the low-degree exact sequence from Hoschild-Serre
+
+\subsection{Profinite groups}
+
+Let $G=\varprojlim G_\alpha$ be a profinite group (that is, an inverse limit of finite groups). This is a topological group, whose topology is induced by the discrete topology on the finite groups $G_\alpha$. 
+
+We have natural continuous maps $\pi_\alpha:G\to G_\alpha$, and their kernels $U_\alpha$ form a system of open neighborhoods of $1\in G$.
+
+\begin{rmk}\
+	\begin{itemize}
+			\item We may assume that the $G_\alpha$ coincide with \textbf{all} finite quotients of $G$ by open normal subgroups, as if $\Gamma$ is such a quotient, then there is some $\alpha$ such that $U_\alpha$ has trivial image in $\Gamma$: indeed, $\Gamma$ is finite and the intersection of all $U_\alpha$ is trivial. So, we get a factorization
+		\[
+		\begin{tikzcd}
+			G \arrow[rd, "\pi_\alpha"] \arrow[d] &   \\
+			G_\alpha \arrow[r, dashed]                     & \Gamma
+		\end{tikzcd}
+		\]
+		\item The inverse limit of a system of finite groups is compact and totally disconnected. With compact here we also include the Hausdorff property, which holds by Tychonoff's theorem. Moreover, the open subgroups of $G$ are exactly the closed subgroups of finite index.
+	\end{itemize}	
+\end{rmk}
+\subsection{Cohomology of profinite groups}
+Let $G=\varprojlim G_\alpha$ be a profinite group, and let $A$ be a \textit{continuous} $G$-module, i.e. an abelian group with an action of $G$ by automorphisms such that $\forall a\in A$, the stabilizer $G_a$ is open in $G$ (exercise: this is equivalent to the map $G\times A\to A$ being continuous, where $A$ has the discrete topology). In particular, if $G_\alpha=G/U_\alpha$, then $A^{U_\alpha}$ is a $G_\alpha$-module, and we define:
+\begin{defn}
+	\[
+		H^i_{\text{cont}}(G,A) \coloneqq \varinjlim H^i(G_\alpha,A^{U_\alpha}),
+	\]
+	where the limit is taken with respect to the inflation maps induced by the projections $G_\beta\twoheadrightarrow G_\alpha$:
+	\[
+		H^i(G_\alpha,A^{U_\alpha}) \to H^i(G_\beta,A^{U_\beta}).
+	\]
+	We'll immediately drop the subscript $\text{cont}$, writing $H^i(G,A)$.
+\end{defn}
+In the case where $G=\Gal(k^s|k)$ is the absolute Galois group of a field $k$, we'll use the notation $H^i(k,A)$ for $H^i(G,A)$.
+
+\begin{prop}
+		If $G$ is profinite and $A$ is a continuous $G$-module, then $H^i(G,A)$ is a torsion abelian group for all $i>0$.
+\end{prop}
+\begin{proof}
+		The groups $H^i(G_\alpha,A^{U_\alpha})$ are torsion: they are killed by the order of $G_\alpha$. Therefore, their direct limit $H^i(G,A)$ is also torsion.
+\end{proof}
+\begin{cor}
+		If moreover $A$ is a $\Q$-vector space, then $H^i(G,A)=0$ for all $i>0$.
+\end{cor}
+\begin{rmk}
+		Given a finite group $G$ and a finitely generated $G$-module $A$, the cohomology groups $H^i(G,A)$ are finite for all $i>0$. This follows from the description of cohomology in terms of the standard resolution and the torsion property above.
+\end{rmk}
+
+\begin{lem}
+		Let $G$ be profinite with $(U_\alpha)$ a system of open normal subgroups. Then,
+		\begin{itemize}
+			\item If $H$ is a closed subgroup of $G$, there is a canonical isomorphism
+			\[
+				H^i(H,A) \cong \varinjlim H^i(H/(H\cap U_\alpha),A^{H\cap U_\alpha})
+			\]
+			which shows that $H$ is profinite;
+			\item If moreover $H$ is normal in $G$, then $G/H\cong \varprojlim G/(HU_\alpha)$ is profinite.
+		\end{itemize}
+	\end{lem}
+Therefore, we can define restriction, corestriction and inflation maps for profinite groups by taking the direct limit of the corresponding maps for finite groups: for instance, restriction is induced by the maps
+\[
+	H^i(G/U_\alpha,A^{U_\alpha}) \xrightarrow{\operatorname{res}} H^i(H/(H\cap U_\alpha),A^{H\cap U_\alpha}).
+\]
+
+Since we defined cohomology explicitly as a direct limit, we have to show ``by hand'' the existence of the long exact sequence in cohomology associated with a short exact sequence of $G$-modules $0\to A\to B\to C\to 0$.
+
+\begin{lem}
+		Let $(A_\alpha,\phi_{\alpha\beta})$, $(B_\alpha,\psi_{\alpha\beta})$ and $(C_\alpha,\rho_{\alpha\beta})$ be direct systems of $G_\alpha$-modules, and assume given short exact sequences
+		\[
+			0 \to A_\alpha \xrightarrow{f_\alpha} B_\alpha \xrightarrow{g_\alpha} C_\alpha \to 0
+		\]
+		for all $\alpha$ which are compatible with the transition maps (i.e. morphisms of direct systems). Then, the direct limit of these sequences is exact.
+\end{lem}
+
+The non-trivial part is defining the connecting homomorphism
+\[
+	\delta: H^i(G,C) \to H^{i+1}(G,A).
+\]
+Let $U\subset G$ be an open normal subgroup. If $K_U\coloneqq \coker(B^U\to C^U,)$ then $\varinjlim_U K_U=0$. By the lemma, we have a short exact sequence
+\[
+	\varinjlim H^i(G/U,(B^U/A^U)) \to \varinjlim H^i(G/U,C^U) \to \varinjlim H^{i+1}(G/U,K_U) 
+\]
+and the last term is $0$ by the above. Therefore, for small enough $U$ we can lift a cocycle $f\in Z^i(G,C)$ to some element in $\varinjlim H^i(G /U,(B^U/A^U))$, and then apply the connecting homomorphism coming from the short exact sequence $0\to A^U \to B^U\to B^U/A^U\to 0$ to get an element in $\varinjlim H^{i+1}(G/U,A^U)$, which has a map into $H^{i+1}(G,A)$ (of course, one should check that this does not depend on any of the choices made).
+
+\section{Kummer Theory}
+\begin{prop}[Hilbert's Theorem 90]
+	Let $K|k$ be a finite Galois extension with group $G=\Gal(K|k)$. Then
+	\[
+		H^1(G,K^\times) = 0.
+	\]
+	Consequently, by passing to the limit over all such extensions we get
+	\[
+	 	H^1(k,(k^s)^\times) = 0.
+	\]
+		
+\end{prop}
+\begin{lem}[Dedekind]
+	If $\sigma_1,\ldots,\sigma_n$ are the elements of $G$, than they are linearly independent over $K$.
+\end{lem}
+\begin{proof}
+		Suppose they are linearly dependent, and let
+		\[
+			a_1\sigma_1+\ldots+a_n\sigma_n=0
+		\]
+		be the \textit{shortest} nontrivial linear relation. Then, choosing $x\in K$ such that $\sigma_1(x)\ne \sigma_2(x)$ and $y\in K$ is arbitrary, then
+		\begin{align*}
+			0 & = a_1\sigma_1(xy)+\ldots+a_n\sigma_n(xy) \\
+			  & = a_1\sigma_1(x)\sigma_1(y)+\ldots+a_n\sigma_n(x)\sigma_n(y) \\
+			  & = \sigma_1(x)(a_1\sigma_1(y)+\ldots+a_n\sigma_n(y)) + (\sigma_2(x)-\sigma_1(x))(a_2\sigma_2(y)+\ldots+a_n\sigma_n(y)).
+		\end{align*}
+		Putting this together with the original relation evaluated at $y$ and multiplied by $\sigma_1(x)$, we get a shorter relation
+		\[
+			(\sigma_2(x)-\sigma_1(x))(a_2\sigma_2(y)+\ldots+a_n\sigma_n(y)) = 0,
+		\]
+		which is a contradiction.
+\end{proof}
+\begin{proof}[Proof of Proposition]
+		Let $\varphi:G\to K^\times$ be a $1$-cocycle, with the cocycle condition being $\varphi(\sigma\tau) = \varphi(\sigma)\cdot\sigma(\varphi(\tau))$. We want to show that $\varphi$ is a coboundary, i.e. there exists some $y\in K^\times$ such that $\varphi(\tau) = \tau(y)\cdot y^{-1}$ for all $\tau\in G$. Consider the element
+		\[
+			\Phi = \sum_{\sigma\in G} \varphi(\sigma)\cdot\sigma \in K[G].
+		\]
+		By the lemma, $\Phi$ is non-zero. Therefore there exist $x,y\in K^\times$ such that
+		\[
+			y= \Phi(x)= \sum_{\sigma\in G} \varphi(\sigma)\cdot\sigma(x),
+		\]
+		and applying $\tau$ to both sides gives
+		\[
+			\tau(y) = \sum_{\sigma\in G} \tau \varphi(\sigma)\cdot\tau\sigma(x) = \sum_{\sigma\in G} \frac{\varphi(\tau\sigma)}{\varphi(\tau)}\tau\sigma(x)= \frac{1}{\varphi(\tau)}\sum_{\sigma\in G} \varphi(\tau\sigma)\cdot\tau\sigma(x) = \frac{1}{\varphi(\tau)}\sum_{\sigma\in G} \Phi(x)= \frac{y}{\varphi(\tau)},
+		\]
+\end{proof}
+The main result of this section is the following:
+\begin{prop}
+		Let $k$ be a field and $m$ a positive integer which is prime to $\operatorname{char}(k)$ (this implies that $\mu_m\subset k^s$). Then, there is a canonical isomorphism
+		\[
+			H^1(k,\mu_m) \cong k^\times/k^{\times m}.
+		\]	
+		whose inverse sends the class of $a\in k^\times/k^{\times m}$ to the class of the cocycle $\sigma \mapsto \sigma(\alpha)\cdot \alpha^{-1}$, where $\alpha\in (k^s)^\times$ is any $m$-th root of $a$.
+\end{prop}
+\begin{proof}
+		Consider the short exact sequence of $G_k$-modules
+		\[
+			1 \to \mu_m \to (k^s)^\times \xrightarrow{(\cdot)^m} (k^s)^\times \to 1.
+		\]
+		By Hilbert's Theorem 90, we have $H^1(k,(k^s)^\times)=0$. Therefore, the long exact sequence in cohomology gives
+		\[
+			H^0(k,(k^s)^\times) \xrightarrow{(\cdot)^m} H^0(k,(k^s)^\times) \to H^1(k,\mu_m) \to 0,
+		\]
+		and the cokernel of the first map is exactly $k^\times/k^{\times m}$, since $H^0(k,(k^s)^\times) = (k^s)^{\times G_k} = k^\times$. The last statement then follows by writing out the connecting map explicitly (lifting corresponds to taking an $m$-th root\ldots).
+\end{proof}
+\begin{exmp}
+		If moreover $\mu_m\subset k$, then $H^1(k,\mu_m) = H^1(k,\Z/m\Z)=\Hom(G_k,\Z/m\Z)$ (the action is trivial). In this case, we deduce that every finite extension $K|k$ with $\Gal(K|k)\cong \Z/m\Z$ is of the form $K=k(\alpha)$ with $\alpha^m\in k$.
+\end{exmp}
+\section{Cup-products}
+Let $G$ be a group and $A,B$ be $G$-modules. The module $A\otimes_\Z B$ is a $G$-module with the diagonal action $\sigma(a\otimes b) = \sigma(a)\otimes\sigma(b)$. The cup-product is a bilinear pairing
+\begin{align*}
+	\cup: H^i(G,A)\times H^j(G,B) &\to H^{i+j}(G,A\otimes B)\\
+	(a,b) &\mapsto a\cup b
+\end{align*}
+which is functorial in $A,B$ and graded-commutative: $a\cup b = (-1)^{ij}b\cup a$; there will be a version for profinite groups by passing to the limit. Let us sketch the application of this gadget to the Hilbert symbol:
+\begin{defn}
+		For a field $k$, the \emph{Brauer group} of $k$ is 
+		\[
+			\Br(k)\coloneqq H^2(k,k_s^\times).
+		\]
+		A non-trivial result is that elements of $\Br(k)$ correspond to central division algebras which are finite-dimensional over $k$.
+\end{defn}
+Another piece of the Kummer long exact sequence is
+\[
+	H^1(k,k_s^\times)=0 \to H^2(k,\mu_n) \xrightarrow{(\cdot)^n} H^2(k,k_s^\times),
+\]
+from which we get $H^2(k,\mu_n)\cong {_n\Br(k)}$, the $n$-torsion in the Brauer group.
+
+Suppose that $\mu_n\subset k$, and take $a,b\in k^\times$. Then, we can take their classes in $k^\times/k^{\times n}\cong H^1(k,\mu_n)=H^1(k,\Z/n\Z)$, and take their cup-product:
+\[
+	H^1(k,\Z/n\Z)\times H^1(k,\Z/n\Z) \to H^2(k,\Z/n\Z\otimes_\Z \Z/n\Z) \cong {_n\Br(k)}.
+\]
+\begin{thm}[Hasse]
+		Let $k|\Qp$ be a finite extension. Then,
+		\[
+			\Br(k) \cong \Q/\Z.	
+		\]
+\end{thm}
+In particular, we deduce that for any $n$ ${_n\Br(k)}\cong \frac{1}{n}\Z/\Z$. Putting these together, we get a map
+\[
+	(\cdot,\cdot)_n: k^\times/k^{\times n}\times k^\times/k^{\times n} \to H^1(k,\Z/n\Z)\times H^1(k,\Z/n\Z) \to {_n\Br(k)} \cong \Z/n\Z,
+\]
+which is the \emph{Hilbert symbol}.
+What happens if $\mu_n\not\subset k$? Given a character $\chi:G_k\to\Z/n\Z$, this lives in the first cohomology group $H^1(k,\Z/n\Z)$, so we can take its cup-product with the class of any $b\in k^\times$ inside $H^1(k,\mu_n)$:
+\[
+	(\chi,b)\coloneqq \chi\cup b \in H^2(k,\mu_n) \overset{\text{Hasse}}{\cong} \Z/n\Z.
+\]
+
+\begin{constr}
+		Let $A^\bullet,B^\bullet$ be complexes of e.g. abelian groups. The tensor product of these complexes is defined as follows: consider the double complex
+		\[
+			\begin{tikzcd}
+				\vdots & \vdots & \vdots & \\
+				A^{i-1}\otimes B^{j+1} \arrow[r] \arrow[u] & A^{i}\otimes B^{j+1} \arrow[r] \arrow[u] & A^{i+1}\otimes B^{j+1} \arrow[r] \arrow[u] & \ldots \\
+				A^{i-1}\otimes B^{j} \arrow[r] \arrow[u] & A^{i}\otimes B^{j} \arrow[r] \arrow[u] & A^{i+1}\otimes B^{j} \arrow[r] \arrow[u] & \ldots \\
+				A^{i-1}\otimes B^{j-1} \arrow[r] \arrow[u] & A^{i}\otimes B^{j-1} \arrow[r] \arrow[u] & A^{i+1}\otimes B^{j-1} \arrow[r] \arrow[u] & \ldots
+			\end{tikzcd}
+		\]
+		with horizontal and vertical differentials
+		\[
+			\partial^h_{i,j} = \partial_A^i\otimes\id_{B^j},\qquad \partial^v_{i,j} = (-1)^i\id_{A^i}\otimes\partial_B^j.
+		\]
+		With this sign, the diagram \text{anti-}commutes, i.e. $\partial^h_{i,j+1}\circ\partial^v_{i,j} =-\partial^v_{i+1,j}\circ\partial^h_{i,j}$. Recall that the total complex $T(A^\bullet\otimes B^\bullet)$ in this case is defined as
+		\[
+			T^n(A^\bullet\otimes B^\bullet) = \bigoplus_{i+j=n} A^i\otimes B^j,	
+		\]
+		with differential given on each component by the sum of the horizontal and vertical differentials:
+		\[
+			\partial^n = \sum_{i+j=n} \partial^h_{i,j} + \partial^v_{i,j}.
+		\]
+		Because of the anti-commutativity, we have $\partial^{n+1}\circ\partial^n=0$, which shows that this is a complex.
+		\begin{defn}
+				We denote by $(A\otimes B)^\bullet$ the total complex $T(A^\bullet\otimes B^\bullet)$, and call it the \emph{tensor product} of the two complexes.
+		\end{defn}
+		Assume moreover that $A,B$ are abelian groups, and consider the complexes $\Hom(A^\bullet,A)$ and $\Hom(B^\bullet,B)$, with differentials given by pre-composition with $\partial_A,\partial_B$. We want to define a product
+		\[
+				H^i(\Hom(A^\bullet,A))\times H^j(\Hom(B^\bullet,B)) \to H^{i+j}(\Hom((A\otimes B)^\bullet,A\otimes B)).
+				\]
+		If $\alpha\in \Hom(A^i,A)$ and $\beta\in \Hom(B^j,B)$, then $\alpha\otimes\beta: A^{-i}\otimes B^{-j}\to A\otimes B$ and we get a map
+		\[
+				\Hom(A^{-i}\otimes B^{-j},A\otimes B) \to \Hom\left(\bigoplus_{k+l=i+j} A^{-k}\otimes B^{-l},A\otimes B\right) = \Hom(T^{i+j}(A^\bullet\otimes B^\bullet),A\otimes B),
+		\]
+		and one easily checks that this is compatible with differentials (sends cocycles to cocycles and coboundaries to coboundaries). Therefore, it induces such a product on cohomology, which is the desired cup-product.
+		\begin{lem}
+				Let $P_\bullet \to \Z$ be a projective resolution of $\Z$ as a trivial $G$-module, and recall the homological indexing $P_i=P^{-i}$. Then, $(P\otimes P)_\bullet$ is a projective resolution of $\Z$ as a trivial $(G\times G)$-module, where the action is the diagonal one.
+		\end{lem}
+		Applying the previous construction with $A^\bullet =B^\bullet = P_\bullet$, we get a product
+		\[
+			H^i(\Hom_G(P_\bullet,A))\times H^j(\Hom_G(P_\bullet,B)) \to H^{i+j}(\Hom_{G\times G}((P\otimes P)_\bullet,A\otimes B)),	
+		\]
+		and composing with the map $H^{i+j}(\Hom_{G\times G}((P\otimes P)_\bullet,A\otimes B)) \to H^{i+j}(\Hom_G((P\otimes P)_\bullet,A\otimes B))$ induced by the diagonal embedding $G\hookrightarrow G\times G$, we get a cup-product
+		\[
+			H^i(G,A)\times H^j(G,B) \to H^{i+j}(G,A\otimes B).
+		\]
+		This is compatible with restriction, inflation and corestriction maps: if $H\leq G$ is a subgroup, then
+		\begin{itemize}
+				\item For $a\in H^i(G,A)$ and $b\in H^j(G,B)$, we have $\operatorname{Res}(a\cup b) = \operatorname{Res}(a)\cup \operatorname{Res}(b) \in H^{i+j}(H,A\otimes B)$.
+				\item If $H\triangleleft G$ is normal, then for $a\in H^i(G/H,A^H)$ and $b\in H^j(G/H,B^H)$, we have $\operatorname{Inf}(a\cup b) = \operatorname{Inf}(a)\cup \operatorname{Inf}(b) \in H^{i+j}(G,A\otimes B)$.
+				\item If $[G:H]<\infty$, then for $a\in H^i(H,A)$ and $b\in H^j(G,B)$, we have 
+				\[
+					\operatorname{Cor}(a\cup \operatorname{Res}(b)) = \operatorname{Cor}(a)\cup b \in H^{i+j}(G,A\otimes B)
+				\]
+				which is called the \emph{projection formula}.
+		\end{itemize}
+\end{constr}
 
 \begin{thebibliography}{9}
 	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
