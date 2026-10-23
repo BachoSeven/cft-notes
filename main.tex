@@ -720,6 +720,118 @@ In the case where $K|\Q_p$ is finite, the exact sequence \eqref{eq:units} splits
 \]
 More is true: $U_K^1$ is the direct product of $\mu_{p^r}$ and $\Z_p^d$, where $d=[K:\Q_p]$ and $r$ is the largest integer such that $\mu_{p^r}\subset K$. In this case, we see that $\K^\times / \K^{\times n}$ is \textbf{finite} for all $n$.
 
+Our goal now is to show that if $K$ is a completely discretely valued field with finite residue field (like finite extensions of $\Q_p$), then $\Br(K)\cong \Q/\Z$. We'll first show that $\Br(K_\text{nr}|K)\cong \Q/\Z$, and then prove that $\Br(K_\text{nr}|K)\cong \Br(K)$.
+
+\begin{lem}
+	Let $L|K$ be a finite Galois unramified extension with Galois group $G$. Then, there exists a split exact sequence
+	\[
+		1 \to H^2(G,U_L) \to H^2(G,L^\times) \to \Hom(G,\Q/\Z) \to 1.
+	\]	
+\end{lem}
+\begin{proof}
+		The exact sequence
+		\[
+			1 \to U_L \to L^\times \xrightarrow{v} \Z \to 0	
+		\]
+		is split by sending $1\in \Z$ to any uniformizer $\pi\in L^\times$, and this is $G$-equivariant since $L|K$ is unramified. Therefore, we get a split exact sequence
+		\[
+			0 \to H^2(G,U_L) \to H^2(G,L^\times) \to H^2(G,\Z) \to 0
+		\]
+		either by using the induced retraction and noticing that $H^1(G,\Z)=\Hom(G,\Z)=0$, or directly from the fact that group cohomology is additive in the coefficients. Finally, we see that $H^2(G,\Z) \cong \Hom(G,\Q/\Z)$ from the long exact sequence associated with $$0\to \Z\to \Q\to \Q/\Z\to 0$$ and the fact that $H^i(G,\Q)=0$ for $i>0$.
+\end{proof}
+
+\begin{prop}\label{prop:brauerresidue}
+		Let $L|K$ and $G$ be as above, and let $\lambda|\kappa$ be the corresponding residue field extension. Then, the reduction map $U_L\to \lambda^\times$ induces an isomorphism
+		\[
+			H^2(G,U_L) \cong H^2(G,\lambda^\times)=\Br(\lambda|\kappa).
+		\]
+\end{prop}
+\begin{cor}
+		We have a split exact sequence
+		\[
+			0\to\Br(\lambda|\kappa)\to\Br(L|K)\to\Hom(G,\Q / \Z)\to 0.
+		\]
+		In particular, when $\kappa$ is finite and $[L:K]=n$ then $G$ must be cyclic of order $n$, the LHS is trivial and thus $\Br(L|K)\cong\Hom(G,\Q/\Z)\cong \Z/n\Z$.
+\end{cor}
+\begin{lem}\label{lem:invlimcohom}
+				Let $G$ be a finite group and $(A_j,\varphi_j)$ (where $\varphi_j: A_{j+1} \to A_j$) be an inverse system of $G$-module indexed by $\Z_+$, and suppose that $H^i(G,A_1)=0$ and $H^i(G,\ker(\varphi_j))=0$ for some $i$. Then,$$H^i(G,\varprojlim_j A_j)=0.$$
+		\end{lem}\noindent(left as an exercise.)
+		\begin{lem}[Additive form of Hilbert 90]
+				If $k$ is a field and $L|k$ is a finite Galois extension with group $G$, then $H^i(G,L^+)=0$ for all $i>0$.
+		\end{lem}
+		\begin{cor}
+				Passing to the limit, we get $H^i(k,(k^s)^+)=0$ for all $i>0$.
+		\end{cor}
+		\begin{proof}[Proof of Lemma]
+				In characteristic $0$, we know this because $L^+$ is a $\Q$-vector space. In general, by the normal basis theorem there is some $a\in L$ such that $\{\sigma(a):\sigma\in G\}$ is a $k$-basis of $L$, so $$L^+\cong k^+ \otimes_\Z \Z[G]$$ as $G$-modules.
+				
+				Since $G$ is finite, this is non-canonically isomorphic to the co-induced module $$\Hom(\Z[G],k^+)=M^G(k^+),$$ and the latter has trivial cohomology by Shapiro's lemma.
+		\end{proof}
+		
+\begin{proof}[Proof of Proposition \ref{prop:brauerresidue}]
+		Notice that, since $\cap_{j=1}^\infty U_L^j = \{1\}$, $U_L^{(1)}$ is the inverse limit of the quotients $U_L^1/U_L^j$. Therefore, we have exact sequences
+		\begin{gather}
+				0 \to U_L^{(1)} \to U_L \to \lambda^\times \to 0,\label{eq:residue1} \\
+				0 \to U_L^{j+1} \to U_L^j \to \lambda^+ \to 0 \quad (j\ge 1).
+		\end{gather}
+		By the second lemma, we know that $H^i(G,\lambda^+)=0$ for $i>0$, so that $H^i(G,U_L^j /U_L^{j+1})=0$ for $i>0$. Therefore, by the first lemma we get $H^i(G,U_L^{(1)})=0$ for $i>0$, since $$U_L^{(j)}/U_L^{(j+1)}=\ker (U_L^{(1)}/U_L^{(j+1)}\to U_L^{(1)}/U_L^{(j)}).$$
+		
+		Finally, the long exact sequence associated with \eqref{eq:residue1} gives
+		\[
+			\cancel{H^2(G,U_L^{(1)})} \to H^2(G,U_L) \Iso H^2(G,\lambda^\times) \to \cancel{H^3(G,U_L^{(1)})},
+			\]
+\end{proof}
+In summary, by passing to the limit we get a split exact sequence 
+\[
+	0\to \Br(k(v)^s|k(v))\to \Br(K_\text{nr}|K)\to \Hom(G_k,\Q/\Z)\to 0,
+\]
+% TODO: missing
+
+The next step is to show that $\Br(K_\text{nr}|K)$ is the full Brauer group of $K$. This is true for any complete discretely valued field, but we only give the proof in the case of finite residue field.
+
+\begin{lem}\label{lem:trivsubmod}
+		If $K$ is a complete discretely valued field and $L|K$ is a finite Galois extension with group $G$, then $U_L$ contains a $G$-submodule $V_L^1\subset U_L$ of finite index such that $H^i(G,V_L^1)=0$ for all $i>0$.
+\end{lem}
+\begin{proof}
+		By the normal basis theorem we have a $K$-basis $\{\sigma(a):\sigma\in G\}$ of $L$ for some $a\in L$. Let $\pi$ be a uniformizer of $K$ (that is, $v(\pi)=1$), and let $r$ be large enough so that $pi^r \sigma(a)\in \mathcal{O}_L$ for all $\sigma\in G$.
+		
+		Let $M$ be the $\mathcal{O}_K$-submodule of $\mathcal{O}_L$ generated by the $\pi^r\sigma(a)$. This is a $G$-submodule of $\mathcal{O}_L$, and recall that $\mathcal{O}_L$ is a free $\mathcal{O}_K$-module of rank $[L:K]$, so $M$ is as well. But then $\mathcal{O}_L/M$ must be finite, because it is a finitely generated torsion $\mathcal{O}_K$-module. Now, fix $m$ such that $\pi^m \mathcal{O}_L\subset M$, and let 
+\[V_L^j\coloneqq 1 + \pi^j M \subset U_L^j\] for $j\ge 1$. 
+% TODO missing, foto dopo
+\end{proof}
+\begin{cor}
+		The group $H^i(G,U_L)$ is finite for all $i>0$.
+\end{cor}
+\begin{proof}
+		% TODO foto prima
+\end{proof}
+
+\begin{prop}\label{prop:brfinite}
+		If $L|K$ are as above and $G\cong \Z/n\Z$, then $|\Br(L|K)| = n$.
+\end{prop}
+\begin{lem}
+		If $G$ is finite cyclic and $A$ is a \emph{finite} $G$-module, then $|H^2(G,A)| = |H^1(G,A)|$.
+\end{lem}
+\begin{proof}
+		Consider the exact sequences
+		\begin{gather*}
+				0 \to A^G \to A \xrightarrow{\sigma-1} A \to (\sigma-1)A \to 0,\\
+				0 \to {_NA} \to A \xrightarrow{N}NA\to 0.
+		\end{gather*}
+		Then $H^1(G,A) = {_NA}/(\sigma-1)A$ and $H^2(G,A) = A^G/NA$, so the result follows from the fact that $|A| = |A^G|\cdot |(\sigma-1)A| = |nA|\cdot |NA|$.
+\end{proof}
+\begin{proof}[Proof of Proposition \ref{prop:brfinite}]
+		We need to show that $H^2(G,L^\times)$ is finite of order $n$. The long exact sequence associated with $1\to U_L \to L^\times \xrightarrow{v} \Z \to 0$ looks like
+		\[
+			\cancel{H^1(G,\Z)} \to H^2(G,U_L) \to H^2(G,L^\times) \to H^2(G,\Z) \cong \Hom(G,\Q/\Z) \to H^3(G,U_L) \to H^3(G,L^\times)\cong \cancel{H^1(G,L^\times)}
+		\]
+		where the last term is trivial by Hilbert 90. By Lemma \ref{lem:trivsubmod}, we have
+		\[
+			H^i(G,U_L) \cong H^i(G,U_L/V_L^1) \quad (i>0),	
+		\]
+		and by the Corollary the RHS is finite. Therefore, $H^2(G,L^\times)$ has a map into $H^2(G,\Z)=\Hom(G,\Q/\Z)\cong \Z/n\Z$ with finite kernel and cokernel of the same order by the previous lemma (since $H^3(G,U_L)=H^1(G,U_L)$), so it must be finite of order $n$ as well.
+\end{proof}
+
 \begin{thebibliography}{9}
 	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
 	\bibitem{groupcohom} Tam\'as Szamuely, \emph{Notes on group cohomology}, \url{https://elearning.dm.unipi.it/pluginfile.php/41095/mod_resource/content/2/cohgroupslong.pdf}.
