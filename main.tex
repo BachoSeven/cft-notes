@@ -523,13 +523,13 @@ Suppose that $\mu_n\subset k$, and take $a,b\in k^\times$. Then, we can take the
 \[
 	H^1(k,\Z/n\Z)\times H^1(k,\Z/n\Z) \to H^2(k,\Z/n\Z\otimes_\Z \Z/n\Z) \cong {_n\Br(k)}.
 \]
-\begin{thm}[Hasse]
+\begin{thm}[Hasse]\label{thm:hasse}
 		Let $k|\Qp$ be a finite extension. Then,
 		\[
 			\Br(k) \cong \Q/\Z.	
 		\]
 \end{thm}
-In particular, we deduce that for any $n$ ${_n\Br(k)}\cong \frac{1}{n}\Z/\Z$. Putting these together, we get a map
+In particular we shall deduce that, for any $n$, ${_n\Br(k)}\cong \frac{1}{n}\Z/\Z$. Putting these together, we get a map
 \[
 	(\cdot,\cdot)_n: k^\times/k^{\times n}\times k^\times/k^{\times n} \to H^1(k,\Z/n\Z)\times H^1(k,\Z/n\Z) \to {_n\Br(k)} \cong \Z/n\Z,
 \]
@@ -720,7 +720,7 @@ In the case where $K|\Q_p$ is finite, the exact sequence \eqref{eq:units} splits
 \]
 More is true: $U_K^1$ is the direct product of $\mu_{p^r}$ and $\Z_p^d$, where $d=[K:\Q_p]$ and $r$ is the largest integer such that $\mu_{p^r}\subset K$. In this case, we see that $\K^\times / \K^{\times n}$ is \textbf{finite} for all $n$.
 
-Our goal now is to show that if $K$ is a completely discretely valued field with finite residue field (like finite extensions of $\Q_p$), then $\Br(K)\cong \Q/\Z$. We'll first show that $\Br(K_\text{nr}|K)\cong \Q/\Z$, and then prove that $\Br(K_\text{nr}|K)\cong \Br(K)$.
+Our goal now is to show Hasse's Theorem \ref{thm:hasse} in the following generality: if $K$ is a completely discretely valued field with finite residue field (e.g. a finite extension of $\Q_p$), then $\Br(K)\cong \Q/\Z$ (the finite residue field assumption can actually be relaxed). We'll first show that $\Br(K_\text{nr}|K)\cong \Q/\Z$, and then prove that $\Br(K_\text{nr}|K)\cong \Br(K)$.
 
 \begin{lem}
 	Let $L|K$ be a finite Galois unramified extension with Galois group $G$. Then, there exists a split exact sequence
@@ -813,7 +813,7 @@ The next step is to show that $\Br(K_\text{nr}|K)$ is the full Brauer group of $
 		If $G$ is finite cyclic and $A$ is a \emph{finite} $G$-module, then $|H^2(G,A)| = |H^1(G,A)|$.
 \end{lem}
 \begin{proof}
-		Consider the exact sequences
+		Consider the following exact sequences of finite abelian groups, where $G=\langle \sigma\rangle$:
 		\begin{gather*}
 				0 \to A^G \to A \xrightarrow{\sigma-1} A \to (\sigma-1)A \to 0,\\
 				0 \to {_NA} \to A \xrightarrow{N}NA\to 0.
@@ -822,6 +822,7 @@ The next step is to show that $\Br(K_\text{nr}|K)$ is the full Brauer group of $
 \end{proof}
 \begin{proof}[Proof of Proposition \ref{prop:brfinite}]
 		We need to show that $H^2(G,L^\times)$ is finite of order $n$. The long exact sequence associated with $1\to U_L \to L^\times \xrightarrow{v} \Z \to 0$ looks like
+		% TODO two-line this
 		\[
 			\cancel{H^1(G,\Z)} \to H^2(G,U_L) \to H^2(G,L^\times) \to H^2(G,\Z) \cong \Hom(G,\Q/\Z) \to H^3(G,U_L) \to H^3(G,L^\times)\cong \cancel{H^1(G,L^\times)}
 		\]
@@ -831,6 +832,148 @@ The next step is to show that $\Br(K_\text{nr}|K)$ is the full Brauer group of $
 		\]
 		and by the Corollary the RHS is finite. Therefore, $H^2(G,L^\times)$ has a map into $H^2(G,\Z)=\Hom(G,\Q/\Z)\cong \Z/n\Z$ with finite kernel and cokernel of the same order by the previous lemma (since $H^3(G,U_L)=H^1(G,U_L)$), so it must be finite of order $n$ as well.
 \end{proof}
+
+We need the following compatibility result:
+\begin{prop}
+		If $L|K$ is a finite separable extension, then the following diagram commutes:
+		\[
+				\begin{tikzcd}
+					\Br(K_\text{nr}|K) \arrow[r, "\cong"] \arrow[d, "\operatorname{Res}"'] & \Q/\Z \arrow[d, "\cdot\,\lbrack L:K\rbrack"] \\
+					\Br(L_\text{nr}|L) \arrow[r, "\cong"] & \Q/\Z
+				\end{tikzcd}
+		\]
+\end{prop}
+% TODO 
+% Since $LK_\text{nr}\subset L_\text{nr}$ is unramified, \ldots
+\begin{proof}
+		Recal that if $L\supset M\supset K$ is the maximal unramified subextension of $L|K$, it's enough to prove the Proposition fo $L=M$ or $M=K$.
+		
+		In the first case, $L_\text{nr}=K_\text{nr}$  and if $\kappa,\lambda$ are the residue fields of $K,L$ respectively, then we have the long exact sequence 
+		\[
+			\Br(K_\text{nr}|K) = H^2(\Gal(K_\text{nr}|K),K_\text{nr}^\times) \xrightarrow{v} H^2(\Gal(K_\text{nr}|K),\Z) \cong H^2(\Gal(\overline{\kappa}|\kappa),\Z) \cong H^1(\kappa,\Q/\Z) \\
+		\]
+		which maps via $\operatorname{Res}$ to the corresponding long exact sequence for $L$:
+		\[
+			\Br(L_\text{nr}|L) = H^2(\Gal(L_\text{nr}|L),L_\text{nr}^\times) \xrightarrow{v} H^2(\Gal(L_\text{nr}|L),\Z) \cong H^2(\Gal(\overline{\lambda}|\lambda),\Z) \cong H^1(\lambda,\Q/\Z).
+		\]
+		In practice, the rightmost terms are continuous homomorphisms from the absolute Galois groups of the residue fields to $\Q/\Z$ (which is just $\Q/\Z$), and the map which makes the diagram commute is multiplication by $[L:K]=[\lambda:\kappa]$.
+
+		In the latter case, if $L|K$ is totally ramified than $\kappa=\lambda$ and $L$ is linearly disjoint from $K_\text{nr}$ over $K$, so that $L_\text{nr}=LK_\text{nr}$. Therefore, we have an analogous diagram
+		% TODO: fix
+		% \[
+		% 	\begin{tikzcd}
+		% 		H^2(\Gal(K_{\text{nr}}|K),K_{\text{nr}}^\times) \arrow[r, "v_K"] \arrow[d, "\operatorname{Res}"'] & H^2(\Gal(K_{\text{nr}}|K),\Z) \arrow[d, "[L:K]\cdot \operatorname{Res}"] \\
+		% 		H^2(\Gal(L_{\text{nr}}|L),L_{\text{nr}}^\times) \arrow[r, "v_L"] & H^2(\Gal(L_{\text{nr}}|L),\Z),
+		% 	\end{tikzcd}
+		% \]
+		since $v_L\circ \operatorname{Res} = [L:K]\cdot \operatorname{Res}\circ v_K$ by the definition of the valuation on $L$. Thus, the rightmost vertical map induces multiplication by $[L:K]$ on $H^1(\kappa,\Q/\Z)$, which concludes the proof.
+\end{proof}
+Finally, we deduce:
+\begin{prop}
+		If $K$ is a complete discrete valuation field with finite residue field, then $\Br(K_\text{nr}|K)\cong \Br(K)$.
+\end{prop}
+\begin{proof}
+		Let $K_n|K$ be the unique unramified extension of degree $n$. Let $L|K$ be any finite Galois extension of degree $n$. We prove that $\Br(L|K)\cong\Br(K_n|K)$ as subgroups of $\Br(K)$, which implies the result by taking the direct limit over all $n$.
+
+		\begin{itemize}
+				\item $\Br(K_n|K)\subset \Br(L|K)$: we have a diagram
+				% TODO picture
+
+				We know that if $L|K$ is cyclic, then $|\Br(L|K)|=n$. Otherwise, we proceed by cases:
+				
+				\item If $\Gal(L|K)$ is a $p$-group of order $n=p^r$, then it is solvable and so there is a chain of subfields
+				\[
+					K = L_0 \subset L_1 \subset \ldots \subset L_r = L	
+				\]
+				such that $L_i|K$ is Galois for all $i$ and $\Gal(L_i|L_{i-1})$ is cyclic of order $p$. By the inflation-restriction sequence, for all $i$ we have exact sequences
+				\[
+					0 \to \Br(L_i|L_{i-1}) \to \Br(L_i|K) \to \Br(L_{i-1}|K),
+				\]
+				and by induction we see that the LHS has order $p$, the RHS has order dividing $p^{i-1}$, and therefore $|\Br(L_i|K)|$ divides $p^i$. For $i=r$, this means that $|\Br(L|K)|$ divides $p^r=n$, but since $\Br(K_n|K)\subset \Br(L|K)$ and $|\Br(K_n|K)|=n$, equality must hold.
+
+				\item In the general case, $n=\prod_{i=1}^m p_i^{r_i}$ and we can choose Sylow $p$-subgroups $P_i$ of $\Gal(L|K)$. Therefore, 
+				\[
+					\Br(L|K)\cong \bigoplus_{i=1}^m \Br(L|K)\{p_i\}
+				\]
+				where $\{p_i\}$ indicates the $p_i$-primary torsion, and the composite
+				\[
+					\Br(L|K)\{p_i\}=H^2(G,L^\times)\{p_i\}\xrightarrow{\operatorname{Res}}H^2(P_i,L^\times)\xrightarrow{\operatorname{Cor}}H^2(G,L^\times)
+				\]
+				is injective since it coincides with multiplication by $[G:P_i]$,which is coprime to $p_i$. Therefore, $\operatorname{Res}$ is injective on the $p_i$-primary torsion, and thus
+				\[
+					\Br(L|K)\hookrightarrow \bigoplus_{i=1}^m H^2(P_i,L^\times) = \bigoplus_{i=1}^m \Br(L|K_i),
+				\]
+				where $K_i$ is the fixed field of $P_i$. By the case of $p$-groups, each term has order dividing $p_i^{r_i}$, and we conclude that $|\Br(L|K)|$ divides $\prod_{i=1}^m p_i^{r_i}=n$ also in this case.
+		\end{itemize}
+\end{proof}
+We can finally conclude the proof of Hasse's theorem:
+\begin{thm}[Hasse]
+		If $K$ is a complete discretely valued field with finite residue field, then there exists a canonical isomorphism $\operatorname{inv}:\Br(K)\xrightarrow{\sim} \Q/\Z$ called the \emph{Hasse invariant}. Moreover, the following diagrams commute for $L|K$ finite separable:
+		\[
+			\begin{tikzcd}
+				\Br(K) \arrow[r, "\operatorname{inv}"] \arrow[d, "\operatorname{Res}"'] & \Q/\Z \arrow[d, "\cdot\,\lbrack L:K\rbrack"] \\
+				\Br(L) \arrow[r, "\operatorname{inv}"] & \Q/\Z
+			\end{tikzcd}
+		\]
+		and 
+		% TODO: fix
+		% \[
+		% 	\begin{tikzcd}
+		% 		\Br(K) \arrow[r, "\operatorname{inv}"] & \Q/\Z \\
+		% 		\Br(L) \arrow[u, "\operatorname{Cor"}] \arrow[r, "\sim"] & \Q/\Z \arrow[u, "\operatorname{id}"]
+		% 	\end{tikzcd}
+		% \]
+\end{thm}
+\begin{proof}
+		The only thing left to prove is the commutativity of the second diagram. Observe that the map $\Br(K)\xrightarrow{\operatorname{Res}}\Br(L)$ is surjective because $\cdot [L:K]$ is surjective on the divisible group $\Q/\Z$. So, if $\alpha\in\Br(L)$ then there exists $\beta\in\Br(K)$ such that $\operatorname{Res}(\beta)=\alpha$. Then, we have
+		\[
+		\operatorname{Cor}(\alpha)=\operatorname{Cor}(\operatorname{Res}(\beta))=[L:K]\cdot \beta,
+		\]
+		and thus $\operatorname{inv}(\alpha) = \operatorname{inv}([L:K]\cdot \beta) = [L:K]\cdot \operatorname{inv}(\beta) = \operatorname{inv}(\operatorname{Cor}(\alpha))$ by the first diagram, which concludes the proof.
+\end{proof}
+\begin{cor}
+		We have $H^2(K,\mu_n)\cong \frac{\Z}{n\Z}$ for $n$ prime to $\operatorname{char}(K)$.
+\end{cor}
+\begin{proof}
+		Given our computation of the Brauer group, this follows from the long exact sequence associated with the Kummer exact sequence
+		\[
+			1 \to \mu_n \to K^s \xrightarrow{(\cdot)^n} K^s \to 1
+		\]
+		and the fact that $H^1(K,(K^s)^\times)=0$ by Hilbert 90, from which $$H^2(K,\mu_n)\cong H^2(K,(K^s)^\times)[n] = \Br(K)[n] \cong \frac{1}{n}\Z/\Z \cong  \Z/n\Z.$$
+\end{proof}
+
+\begin{constr}
+		We construct the Hilbert symbol for $(n,\operatorname{char}(K))=1$ as follows. For $\chi\in H^1(K,\Z/n\Z)$ and $b\in K^\times / K^{\times n}\cong H^1(K,\mu_n)$, we have a cup product
+		\[
+			\chi \cup b \in H^2(K,\mu_n) \cong \Z/n\Z,
+		\]
+		which we denote by $(\chi,b)$.
+		
+		In particular, in the case where $K\supset \mu_n$, we have an isomorphism $H^1(K,\Z /n\Z)\cong H^1(K,\mu_n)$ which depends on the choice of a primitive $n$-th root of unity $\omega\in \mu_n$, so we get a pairing
+		\[
+			(\cdot,\cdot): K^\times / K^{\times n} \times K^\times / K^{\times n} \to \Z/n\Z
+		\]
+		sending $(a,b)$ to $(\chi_a,b)$, where $\chi_a$ is the character corresponding to $a$. Moreover, by using the same fixed isomrphism $\Z/n\Z \cong \mu_n$ we get a pairing
+		\[
+			(\cdot,\cdot): K^\times / K^{\times n} \times K^\times / K^{\times n} \to \mu_n
+		\]
+		which does not depend on the choice of $\omega$.
+\end{constr}
+
+The following results helps us verify that this really is a generalization of the classical Hilbert symbol, even for $n=2$:
+
+\begin{prop}
+		Suppose that $\chi\in H^1(K\Z /n\Z)$ corresponds to a \emph{surjective} character $\Gal(K_s|K)\twoheadrightarrow \Z/n\Z$, and let $L$ be the fixed field of its kernel. Then, if $b\in K^\times$ 
+		\[
+			(\chi,b)=0\iff b\in N_{L|K}(L^\times).
+		\]
+\end{prop}
+
+Suppose $n=2$ (so that $\mu_2=\{\pm 1\}\subset K$). Then, $L$ is a quadratic extension $K(\sqrt{a})$ for some $a\in K^\times$, and the above proposition says that $(a,b)=0$ if and only if $b$ is a norm from $K(\sqrt{a})$, that is there are some $x,y\in K$ such that 
+\[
+	N_{K(\sqrt{a})|K}(x+y\sqrt{a})=x^2+ay^2=b \iff x^2 +ay^2-bz^2\text{ has a nontrivial zero};
+\]
+which was precisely our original definition of the Hilbert symbol.
 
 \begin{thebibliography}{9}
 	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
