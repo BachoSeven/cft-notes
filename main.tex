@@ -720,6 +720,7 @@ In the case where $K|\Q_p$ is finite, the exact sequence \eqref{eq:units} splits
 \]
 More is true: $U_K^1$ is the direct product of $\mu_{p^r}$ and $\Z_p^d$, where $d=[K:\Q_p]$ and $r$ is the largest integer such that $\mu_{p^r}\subset K$. In this case, we see that $\K^\times / \K^{\times n}$ is \textbf{finite} for all $n$.
 
+\subsection{The Brauer group of a local field}
 Our goal now is to show Hasse's Theorem \ref{thm:hasse} in the following generality: if $K$ is a completely discretely valued field with finite residue field (e.g. a finite extension of $\Q_p$), then $\Br(K)\cong \Q/\Z$ (the finite residue field assumption can actually be relaxed). We'll first show that $\Br(K_\text{nr}|K)\cong \Q/\Z$, and then prove that $\Br(K_\text{nr}|K)\cong \Br(K)$.
 
 \begin{lem}
@@ -942,38 +943,320 @@ We can finally conclude the proof of Hasse's theorem:
 		and the fact that $H^1(K,(K^s)^\times)=0$ by Hilbert 90, from which $$H^2(K,\mu_n)\cong H^2(K,(K^s)^\times)[n] = \Br(K)[n] \cong \frac{1}{n}\Z/\Z \cong  \Z/n\Z.$$
 \end{proof}
 
+\section{Local class field theory}
 \begin{constr}
 		We construct the Hilbert symbol for $(n,\operatorname{char}(K))=1$ as follows. For $\chi\in H^1(K,\Z/n\Z)$ and $b\in K^\times / K^{\times n}\cong H^1(K,\mu_n)$, we have a cup product
 		\[
 			\chi \cup b \in H^2(K,\mu_n) \cong \Z/n\Z,
 		\]
-		which we denote by $(\chi,b)$.
+		which we denote by $(\chi,b)_K$.
 		
 		In particular, in the case where $K\supset \mu_n$, we have an isomorphism $H^1(K,\Z /n\Z)\cong H^1(K,\mu_n)$ which depends on the choice of a primitive $n$-th root of unity $\omega\in \mu_n$, so we get a pairing
 		\[
-			(\cdot,\cdot): K^\times / K^{\times n} \times K^\times / K^{\times n} \to \Z/n\Z
+			(\cdot,\cdot)_K: K^\times / K^{\times n} \times K^\times / K^{\times n} \to \Z/n\Z
 		\]
-		sending $(a,b)$ to $(\chi_a,b)$, where $\chi_a$ is the character corresponding to $a$. Moreover, by using the same fixed isomrphism $\Z/n\Z \cong \mu_n$ we get a pairing
+		which sends $(a,b)$ to $(\chi_a,b)_K$, where $\chi_a$ is the character corresponding to $a$. Moreover, by using the same fixed isomrphism $\Z/n\Z \cong \mu_n$ we get a pairing
 		\[
-			(\cdot,\cdot): K^\times / K^{\times n} \times K^\times / K^{\times n} \to \mu_n
+			(\cdot,\cdot)_K: K^\times / K^{\times n} \times K^\times / K^{\times n} \to \mu_n
 		\]
-		which does not depend on the choice of $\omega$.
+		which, if $\delta: K^\times / K^{\times n} \to H^1(K,\mu_n)$ is the connecting homomorphism associated with the Kummer exact sequence, satisfies $$(a,b)_K = \omega^{\operatorname{inv}(\delta(a)\cup \delta(b))}.$$ One checks that this does not depend on the choice of $\omega$.
 \end{constr}
 
 The following results helps us verify that this really is a generalization of the classical Hilbert symbol, even for $n=2$:
 
 \begin{prop}
-		Suppose that $\chi\in H^1(K\Z /n\Z)$ corresponds to a \emph{surjective} character $\Gal(K_s|K)\twoheadrightarrow \Z/n\Z$, and let $L$ be the fixed field of its kernel. Then, if $b\in K^\times$ 
+		Suppose that $\chi\in H^1(K,\Z /n\Z)$ corresponds to a \emph{surjective} character $\Gal(K_s|K)\twoheadrightarrow \Z/n\Z$, and let $L$ be the fixed field of its kernel. Then, if $b\in K^\times$ 
 		\[
 			(\chi,b)=0\iff b\in N_{L|K}(L^\times).
 		\]
 \end{prop}
+This now follows in a purely algebraic way:
+\begin{proof}
+		Let $G\coloneqq \Gal(L|K)$; then the character $\chi$ induces an isomorphism $G\xrightarrow{\widetilde{\chi}} \Z/n\Z$ by assumption. Moreover, the Kummer long exact sequence fits in a ``commutative'' diagram
+		\[
+\begin{tikzcd}[column sep=0.8em]
+H^1(K,\mathbb{Z}/n\mathbb{Z})
+  \arrow[d, "d"']
+&
+\times
+&
+H^1(K,\mu_n)
+	\arrow[rr, "\cup"]
+&
+&
+H^2(K,\mu_n)
+  \arrow[r, "\cong"]
+	\arrow[d, hook]
+&
+{}_n\Br(K)
+  \arrow[d, hook]
+\\
+H^2(K,\mathbb{Z})
+&
+\times
+&
+H^0(K,\overline{K}^{\times})
+  \arrow[u, "\delta"]
+	\arrow[rr, "\cup"]
+&
+&
+H^2(K,\overline{K}^{\times})
+  \arrow[r, "\cong"]
+&
+\Br(K)
+\end{tikzcd}
+\]
+where the left vertical map is the connecting homomorphism associated with the exact sequence $0\to \Z \to \Z \to \Z/n\Z\to 0$, from which we see that $(\chi,b)=0$ if and only if $d(\chi)\cup b=0$. But by working at the finite level, we have $d(\widetilde{\chi})\in H^2(G,\Z)$ and $b\in H^0(G,L^\times)$, but then the cup product $d(\widetilde{\chi})\cup b\in H^2(G,L^\times)$ viewed through the isomorphisms $$H^2(G,L^\times)\cong \Br(L|K)\cong K^\times / N_{L|K}(L^\times)$$ is trivial if and only if $b\in N_{L|K}(L^\times)$, which concludes the proof.
+\end{proof}
 
 Suppose $n=2$ (so that $\mu_2=\{\pm 1\}\subset K$). Then, $L$ is a quadratic extension $K(\sqrt{a})$ for some $a\in K^\times$, and the above proposition says that $(a,b)=0$ if and only if $b$ is a norm from $K(\sqrt{a})$, that is there are some $x,y\in K$ such that 
 \[
 	N_{K(\sqrt{a})|K}(x+y\sqrt{a})=x^2+ay^2=b \iff x^2 +ay^2-bz^2\text{ has a nontrivial zero};
 \]
 which was precisely our original definition of the Hilbert symbol.
+
+The $\bmod n$ Hilbert symbol (for $n$ prime to $\operatorname{char}(K)$) is defined via the following diagram:
+% TODO: why/what is this?
+% Also to fix, (chi,b)_K) is defined as inv of chi cup delta(b) with delta iso from \frac{k}{kn} to h1(mu_n)}
+% \[
+% 	\begin{tikzcd}
+% 			H^1(K,\Z/n\Z) \times K^\times / K^{\times n} \arrow[r, "(\cdot,\cdot)_K"] \arrow[d, "\sim"'] & Z /n\Z \arrow[d, "\sim"] \\
+% 			H^1(K,\Z/n\Z) \times H^1(K,\mu_n) \arrow[r, "\cup"] & H^2(K,\mu_n) \arrow[r, "\sim"] & \Z/n\Z
+% 	\end{tikzcd}
+% \]
+
+Here are some properties of the Hilbert symbol:
+\paragraph{Properties.}
+\begin{itemize}
+		\item $(\chi, b)_K, (a, b)_K$ are $\Z/n\Z$-bilinear;
+		\item $(a,b)_K=(b,a)^{-1}_K$ by graded-commutativity of the cup product: recall that if $A,B$ are $G$-modules and $\alpha\in H^i(K,A),\beta\in H^j(K,B)$, then
+		\[
+			\alpha \cup \beta = (-1)^{ij} \beta \cup \alpha.
+		\]
+\end{itemize}
+
+Let's analyze a special case: again, let $L$ be the fixed field of the kernel of $\chi$ and suppose that $L|K$ is \emph{unramified}. If $\lambda|\kappa$ is the corresponding residue field extension and $G\coloneqq \Gal(L|K)$, then the Frobenius $(x\mapsto x^q)$ generates $\Gal(\lambda|\kappa)\cong G$ where $q=|\kappa|$. Let $F$ be automorphism of $L$ lifting the Frobenius, so that $F$ generates $G$. 
+\begin{prop}
+		For all $b$ in $K^\times$, we have
+		\begin{equation}\label{eq:unramifiedhilb}
+			(\chi, b)_K=\widetilde{\chi}(F^{v(b)}).	
+		\end{equation}
+			
+\end{prop}
+\begin{proof}
+		Recall that $(\chi,b)_K=\operatorname{inv}(\chi\cup \delta(b))=\operatorname{inv}(d(\chi)\cup b)$. As before, it's enough to work at the level of the quotient $G=\Gal(L|K)$, and the definition of the Hasse invariant in the unramified case is 
+		\[
+			H^2(G,L^\times)\overset{v}{\to} H^2(G,\Z)\cong H^1(G,\Q/\Z) \overset{\psi \mapsto \psi(F)}{\longrightarrow} \Q/\Z.
+		\]
+		Moreover, by functiorality of the cup-product we have a compatibility diagram
+		\[
+\begin{tikzcd}[column sep=0.8em]
+H^2(G,\Z)
+  \arrow[d, "\id"]
+&
+\times
+&
+H^0(G,L^\times)\arrow[d, "v"]
+	\arrow[rr, "\cup"]
+&
+&
+H^2(G,L^\times)
+  \arrow[d, "v"]
+\\
+H^2(G,\Z)
+&
+\times
+&
+H^0(G,\Z)
+	\arrow[rr, "\cup"]
+&
+&
+H^2(G,\Z)
+\end{tikzcd}
+\]
+
+		Finally, we compute:
+		\[
+			\operatorname{inv}{d(\widetilde{\chi})\cup b} = d^{-1}(v(b)\cdot d(\widetilde{\chi}))(F) = \widetilde{\chi}^{v(b)}(F) = \widetilde{\chi}(F^{v(b)}).
+		\]
+
+\end{proof}
+
+\begin{prop}
+		Suppose $|\kappa|=q$ and $(n,q)=1$. Then, for all $a,b\in K^\times/K^{\times n}$ and $\mu_n\subset K$ we have
+		\begin{equation}\label{eq:tamesymbol}
+			(a,b)_K = \overline{(-1)^{v(a)v(b)}a^{v(b)b^{-v(a)}}}^{\frac{q-1}{n}},	
+		\end{equation}
+			
+		where for $c\in U_K$ (that is, $v(c)=0$) we denote by $\overline{c}$ its image in the residue field $\kappa$ and where we identified $\mu_{q-1}\cong \kappa^\times$. Note that since $\mu_n\subset K$, we have $n|(q-1)$ and thus the exponent $\frac{q-1}{n}$ is an integer.
+\end{prop}
+\begin{rmk}
+		The pairing \eqref{eq:tamesymbol} above is called the \emph{tame symbol}.
+\end{rmk}
+\begin{proof}
+		Fix $\pi\in K^\times$ with $v(\pi)=1$. Then, we know every element of $K^\times$ can be written as $u\pi^r$ for some unit $u\in U_K$ and $r\in \Z$. As both sides are bi-multiplicative and anti-commutative, we reduce to the cases where $a,b$ are either both units or where $a$ is a unit and $b=\pi$. In the first case, since we assumed that $\mu_n$ is contained in $K$, the abelian Kummer extension $K(\sqrt[n]{a})|K$ is an unramified extension because $\kappa(\sqrt[n]{\overline{a}})|\kappa$ is an abelian extension of the same degree. Therefore, by the formula \eqref{eq:unramifiedhilb} we have 
+		% TODO incomplete, finish passages from photo.
+		\begin{gather*}
+				(u,u^\prime)_K=\chi_u(F^{\cancel{v(u^\prime)}})=1,\\
+				(u,\pi)_K=\chi_u(F^{v(\pi)})=\chi_u(F)=\overline{u}^{\frac{q-1}{n}}.
+		\end{gather*}
+\end{proof}
+
+\subsection{Artin reciprocity}
+\begin{prop}
+		Let $K|\Q_p$ be a finite extension with $G_K\coloneqq \Gal(\overline{K}|K)$. Then, for all $n>0$ we have $|G_K^{\text{ab}}/n|<\infty$.
+\end{prop}
+\begin{rmk}
+		This is not true in positive characteristic, e.g. for $K=\F_q((t))$.
+\end{rmk}
+\begin{proof}
+		It's enough to prove that 
+		\[
+			H^1(K,\Z/n\Z)\cong \Hom(G_K^{\text{ab}},\Z/n\Z)
+		\]
+		is finite, and if we conisder the finite extension $K(\mu_n)|K$ we have an exact sequence
+		\[
+			0 \to H^1(\Gal(K(\mu_n)|K),\Z/n\Z) \xrightarrow{\operatorname{Inf}} H^1(K,\Z/n\Z) \xrightarrow{\operatorname{Res}} H^1(K(\mu_n),\Z/n\Z)
+		\]
+		with the first term being finite (as it is the cohomology of a finite group) and the last term as well by Kummer theory (since it is $H^1(K(\mu_n),\mu_n)= K(\mu_n)^\times / K(\mu_n)^{\times n}$ and for $L|\Q_p$ finite we know that $|L^\times / L^{\times n}|<\infty$).
+\end{proof}
+\begin{cor}
+		$G_K^{\text{ab}}\cong \varprojlim_n G_K^{\text{ab}}/n$.
+\end{cor}
+\begin{proof}
+		If $U\subset G_K^{\text{ab}}$ is an open subgroup of finite index $n$, then it must contain $n\cdot G_K^{\text{ab}}$; this is a closed subgroup of finite index and is thus open, and so these are cofinal among all open subgroups of finite index in $G_K^{\text{ab}}$.
+\end{proof}
+
+
+We now construct a map
+\[
+	\rho_K: K^\times \to G_K^\text{ab},
+\]
+assembled from maps $K^\times\to G_K^\text{ab}/n$ for all $n$ which are compatible for $n|m$. The $\bmod n$ Hilbert symbol
+\[
+	H^1(K,\Z/n\Z)\times K^\times / K^{\times n} \to \Z/n\Z
+\]
+induces a map
+\[
+\begin{tikzcd}
+K^\times / K^{\times n} \arrow[r] & \Hom(H^1(K,\Z/n\Z),\Z/n\Z)\arrow[d, "\cong"] \\
+K^\times \arrow[u] \arrow[r, "\rho_K"] & G_K^\text{ab}/n 
+\end{tikzcd}
+\]
+called the \emph{local reciprocity map}. 
+Moreover, if $L|K$ is a finite abelian extension, the surjection 
+\[
+	G_K^\text{ab}\twoheadrightarrow \Gal(L|K)
+\]
+yields by composition a map
+\[
+	\rho_{L|K}: K^\times \xrightarrow{\rho_K} G_K^\text{ab} \twoheadrightarrow \Gal(L|K).
+\]
+\begin{thm}
+		$\rho_{L|K}$ is surjective and induces an isomorphism
+		\[
+			\overline{\rho_{L|K}}: K^\times / N_{L|K}(L^\times) \xrightarrow{\sim} \Gal(L|K).
+		\]
+\end{thm}
+\begin{proof}[Proof when $L|K$ is cyclic]
+
+		Suppose $G=\Gal(L|K)\cong \Z/n\Z$. Then, by counting it's enough to prove injectivity, since as abstract groups
+		\[
+			K^\times / N_{L|K}(L^\times) \cong \Br(L|K) \cong H^2(G,L^\times) \cong \Z/n\Z \cong G.
+		\]
+		For injectivity, suppose that $\Hom(G,\Z/n\Z)\cong \Z/n\Z$ is generated by $\widetilde{\chi}$ which induces an isomorphism $G\xrightarrow{\sim} \Z/n\Z$. If $\chi$ is the lift of $\widetilde{\chi}$, by construction $\widetilde{\chi}(\rho_{L|K}(b))=(\chi,b)_K$ for all $b\in K^\times$. Since $\widetilde{\chi}$ generates $\Hom(G,\Z/n\Z)$, we have that $\rho_{L|K}(b)=0$ if and only if $(\chi,b)_K=0$, which by the previous proposition is equivalent to $b$ being a norm from $L^\times$.
+\end{proof}
+In order to reduce to the cyclic case, we need a lemma:
+\begin{lem}
+		If $L|K$ is a finite abelian extension, then the following diagram commutes:
+		\[
+			\begin{tikzcd}
+					K^\times \arrow[r, "\rho_K"] & G_K^\text{ab} \\
+					L^\times \arrow[u, "N_{L|K}"] \arrow[r, "\rho_L"] & G_L^\text{ab} \arrow[u, "\operatorname{Res}"']
+			\end{tikzcd}
+		\]
+\end{lem}
+\begin{proof}
+		Consider the following diagram:
+		\[
+			\begin{tikzcd}[column sep=small]
+						L^\times \arrow[r, "F"] \arrow[d, "N_{L|K}"']
+						& H^1(L,\mu_n) \arrow[r] \arrow[d, "\operatorname{Cor}"']
+						& \Hom(H^1(L,\Z/n\Z),\Z/n\Z) \arrow[d, "\operatorname{Res}^{\vee}"'] \\
+						K^\times \arrow[r, "F"]
+						& H^1(K,\mu_n) \arrow[r]
+						& \Hom(H^1(K,\Z/n\Z),\Z/n\Z)
+			\end{tikzcd}
+		\]
+		We first check that the left square commutes. Almost by definition, the norm map from $L^\times=H^0(L,\overline{K}^\times)$ to $K^\times=H^0(K,\overline{K}^\times)$ coincides with corestriction, so the commutativity comes from the functoriality of the connecting homomorphism in the Kummer exact sequence.
+
+		For the right square, contemplate the following ``commutative'' diagram:
+		\[
+\begin{tikzcd}[column sep=0.8em]
+H^1(L,\mu_n)
+  \arrow[d, "\operatorname{Cor}"']
+&
+\times
+&
+H^1(L,\Z/n\Z)
+	\arrow[rr, "\cup"]
+&
+&
+H^2(L,\mu_n)
+  \arrow[r, "\operatorname{inv}"]
+	\arrow[d, "\operatorname{Cor}"]
+&
+\Z/n\Z
+  \arrow[d]
+\\
+H^1(K,\mu_n)
+&
+\times
+&
+H^1(K,\Z/n\Z)
+  \arrow[u, "\operatorname{Res}"]
+	\arrow[rr, "\cup"]
+&
+&
+H^2(K,\mu_n)
+  \arrow[r, "\operatorname{inv}"]
+&
+\Z/n\Z
+\end{tikzcd}
+\]
+The fact that chasing elements around it gives the same result is a consequence of the \textit{projection formula} for the cup product, namely $\operatorname{Cor}(\alpha\cup \operatorname{Res}(\beta)) = \operatorname{Cor}(\alpha)\cup \beta$. This is an instance of a general kind of compatibility between pushforward and pullback maps, but can of course be checked directly. Since we know that commutativity of its right square, the above diagram implies that the right square commutes as well.
+\end{proof}
+Now, if $L|K$ is any finite abelian extension, there is a chain of subfields
+\[
+	K = L_0 \subset L_1 \subset \ldots \subset L_r = L
+\]
+such that $L_i|K$ has cyclic Galois group for all $i$. We prove the theorem by descending induction on $i$, with $i=r$ as the cyclic case and $i=0$ being the theorem. For the inductive step, consider the diagram
+\[
+	\begin{tikzcd}
+			L_i^\times/N_{L|L_i}(L^\times) \arrow[r, "N_{L_i|L_{i-1}}"] \arrow[d, "\overline{\rho_{L|L_i}}"'] & L_{i-1}^\times/N_{L|L_{i-1}}(L^\times) \arrow[d, "\overline{\rho_{L|L_{i-1}}}"] \arrow[r] & L_{i-1}^\times/N_{L_i|L_{i-1}}(L_i^\times) \arrow[d, "\overline{\rho_{L_i|L_{i-1}}}"] \ar[r] & 1 \\
+			\Gal(L|L_i) \arrow[r, "\operatorname{Res}"'] & \Gal(L|L_{i-1})  \arrow[r] & \Gal(L_i|L_{i-1}) \arrow[r] & 1
+	\end{tikzcd}
+\]
+\begin{cor}
+		The map $\rho_K$ induces surjective maps
+		\[
+			\rho_{K,n}: K^\times / K^{\times n} \twoheadrightarrow G_K^\text{ab}/n
+		\]
+\end{cor}
+\begin{proof}
+		Since $G_K^\text{ab}/n$ is finite, there is a finite abelian extension $L|K$ such that $G_K^\text{ab}/n\cong \Gal(L|K)$. Moreover, we already know that $\rho_{L|K}$ is surjective. 
+\end{proof}
+
+Next time, we'll see:
+\begin{thm}[Existence theorem]
+		If $H\subset K^\times$ is a subgroup of finite index, there exists a unique finite abelian extension $L|K$ such that $H=N_{L|K}(L^\times)$.
+\end{thm}
+\begin{cor}
+		$\rho_K$ induces an isomorphism between the profinite completion of $K^\times$ and $G_K^\text{ab}$:
+		\[
+			\varprojlim_H K^\times / H \eqqcolon \widehat{K^\times} \xrightarrow{\sim} G_K^\text{ab},	
+		\]
+\end{cor}
 
 \begin{thebibliography}{9}
 	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
