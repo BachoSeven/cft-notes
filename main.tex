@@ -1231,6 +1231,7 @@ Now, if $L|K$ is any finite abelian extension, there is a chain of subfields
 	K = L_0 \subset L_1 \subset \ldots \subset L_r = L
 \]
 such that $L_i|K$ has cyclic Galois group for all $i$. We prove the theorem by descending induction on $i$, with $i=r$ as the cyclic case and $i=0$ being the theorem. For the inductive step, consider the diagram
+% TODO probably have a picture for this
 \[
 	\begin{tikzcd}
 			L_i^\times/N_{L|L_i}(L^\times) \arrow[r, "N_{L_i|L_{i-1}}"] \arrow[d, "\overline{\rho_{L|L_i}}"'] & L_{i-1}^\times/N_{L|L_{i-1}}(L^\times) \arrow[d, "\overline{\rho_{L|L_{i-1}}}"] \arrow[r] & L_{i-1}^\times/N_{L_i|L_{i-1}}(L_i^\times) \arrow[d, "\overline{\rho_{L_i|L_{i-1}}}"] \ar[r] & 1 \\
@@ -1246,17 +1247,123 @@ such that $L_i|K$ has cyclic Galois group for all $i$. We prove the theorem by d
 \begin{proof}
 		Since $G_K^\text{ab}/n$ is finite, there is a finite abelian extension $L|K$ such that $G_K^\text{ab}/n\cong \Gal(L|K)$. Moreover, we already know that $\rho_{L|K}$ is surjective. 
 \end{proof}
+\begin{cor}
+		If $L_1|K$ and $L_2|K$ are finite abelian extensions, then
+		\[
+			L_1\subset L_2 \iff N_{L_2|K}(L_2^\times)\subset N_{L_1|K}(L_1^\times).
+		\]
+		Consequently, $L_1=L_2$ if and only if $N_{L_1|K}(L_1^\times)=N_{L_2|K}(L_2^\times)$: such extensions are uniquely determined by their norm groups in $K^\times$.
+\end{cor}
+\begin{proof}
+		The implication $\implies$ is obvious. For the converse, we claim that 
+		\[
+			N_{L_1|K}(L_1^\times)\cap N_{L_2|K}(L_2^\times) = N_{L_1L_2|K}(L_1L_2^\times).
+		\]
+		Notice that the compositum $L_1L_2$ is itself an abelian extension, as its Galois group embeds in an abelian group:
+		\begin{equation}\label{eq:injcomp}
+				\Gal(L_1L_2|K)\hookrightarrow \Gal(L_1|K)\times \Gal(L_2|K).
+		\end{equation}
+		Then, 
+		\[
+			N_{L_1L_2|K}(L_1L_2^\times) = N_{L_1|K}(N_{L_1L_2|L_1}(L_1L_2^\times)) \subset N_{L_1|K}(L_1^\times),
+		\]
+		and similarly it's contained in $N_{L_2|K}(L_2^\times)$. 
 
-Next time, we'll see:
-\begin{thm}[Existence theorem]
+		For the other inclusion, suppose $a\in N_{L_1|K}(L_1^\times)\cap N_{L_2|K}(L_2^\times)$. Then, by the previous theorem, $\rho_{L_1|K}(a)=0$ and $\rho_{L_2|K}(a)=0$, which by \eqref{eq:injcomp} implies that $\rho_{L_1L_2|K}(a)=0$ as well. Therefore, $a\in N_{L_1L_2|K}(L_1L_2^\times)$, which shows the claim.
+
+		Now assume that $N_{L_2|K}(L_2^\times)\subset N_{L_1|K}(L_1^\times)$. Then, trivially $N_{L_1|K}(L_1^\times)\cap N_{L_2|K}(L_2^\times) = N_{L_2|K}(L_2^\times)$, and so by the previous claim we get
+		\[
+			N_{L_2|K}(L_2^\times) = N_{L_1L_2|K}(L_1L_2^\times).
+		\]
+		Putting this together with the theorem:
+		\[
+			\Gal(L_1L_2|K) \cong K^\times / N_{L_1L_2|K}(L_1L_2^\times) = K^\times / N_{L_2|K}(L_2^\times) \cong \Gal(L_2|K),
+		\]
+		and $L_2\subset L_1L_2$ forces $L_2=L_1L_2$, which implies $L_1\subset L_2$.
+
+\end{proof}
+
+Next, we prove the main theorem of local class field theory, which is a consequence of the previous results:
+\begin{thm}[Existence theorem]\label{thm:existence}
 		If $H\subset K^\times$ is a subgroup of finite index, there exists a unique finite abelian extension $L|K$ such that $H=N_{L|K}(L^\times)$.
+		
+		Therefore, $L\mapsto N_{L|K}(L^\times)$ gives an order-reversing bijection
+		\[
+			\left\{\text{finite abelian extensions of }K\right\} \longleftrightarrow \left\{\text{finite index subgroups of }K^\times\right\}.
+		\]
 \end{thm}
 \begin{cor}
 		$\rho_K$ induces an isomorphism between the profinite completion of $K^\times$ and $G_K^\text{ab}$:
 		\[
-			\varprojlim_H K^\times / H \eqqcolon \widehat{K^\times} \xrightarrow{\sim} G_K^\text{ab},	
+			\varprojlim_H K^\times / H \eqqcolon \widehat{K^\times} \xlongrightarrow{\sim} G_K^\text{ab},	
 		\]
 \end{cor}
+
+\begin{lem}
+		Fix $n>0$. Then, the following statements are equivalent:
+		\begin{enumerate}
+				\item (\emph{Local Tate duality}) The cup-product pairing
+				\[
+					H^1(K,\Z/n\Z)\times H^1(K,\mu_n)\to H^2(K,\mu_n)\cong \Z/n\Z
+				\]
+				is a perfect pairing of finite groups;
+				\item The map $\rho_{K,n}: K^\times / K^{\times n} \to G_K^\text{ab}/n$ is an isomorphism.
+				\item Every subgroup $H\subset K^\times$ containing $K^{\times n}$ is of the form $H=N_{L|K}(L^\times)$ for some finite abelian extension $L|K$.
+				\item The subgroup $K^{\times n}$ is of the form $N_{L|K}(L^\times)$.
+		\end{enumerate}
+\end{lem}
+\begin{proof}
+		The equivalence $(1)\iff (2)$ follows from the construction of $\rho_{K,n}$:
+		\[
+		\begin{tikzcd}[column sep=large]
+			K^\times \arrow[r] &
+			K^\times / K^{\times n}
+				\arrow[r, "\sim"]
+				\arrow[bend right=20, rr, "\rho_{K,n}"'] &
+			H^1(K,\mu_n) \arrow[r]	&
+			\Hom(H^1(K,\Z/n\Z),\Z/n\Z) \cong G_K^\text{ab}/n
+		\end{tikzcd}
+		\]
+		For $(2)\implies (3)$, we can complete the following diagram by Galois theory:
+		\[
+		\begin{tikzcd}
+			K^\times / K^{\times n} \arrow[r, "\sim ", "(2)"'] \arrow[d, two heads] & G_K^\text{ab}/n \arrow[d, two heads] \\
+			K^\times / H \arrow[r, dashed, "\sim"] & \Gal(L|K)
+		\end{tikzcd}
+		\]
+		Therefore, by the theorem $H=N_{L|K}(L^\times)$. The implication $(3)\implies (4)$ is trivial, and for $(4)\implies (2)$ notice that by the theorem $K^{\times n}=N_{L|K}(L^\times)$ gives us a diagram
+		% TODO this is not the diagram
+		\[
+		\begin{tikzcd}
+			K^\times / K^{\times n} \arrow[r, "\sim"] \arrow[d, "\sim"'] & G_K^\text{ab}/n \arrow[d, "\sim"] \\
+			H^1(K,\mu_n) \arrow[r, "\sim"] & H^1(K,\Z/n\Z)^\vee,
+		\end{tikzcd}
+		\]
+		from which injectivity of $\rho_{K,n}$ follows, and since we already established surjectivity, we get an isomorphism.
+\end{proof}
+\begin{lem}
+				Let $L\subset \overline{K}$ be a finite extension of $K$, and take $\sigma \in G_K$. Then, $\sigma(L)$ is another finite extension of $K$ the following diagram commutes:
+				\[
+				\begin{tikzcd}
+					L^\times \arrow[r, "\sigma"] \arrow[d, "\rho_L"'] & \sigma(L)^\times \arrow[d, "\rho_{\sigma(L)}"] \\
+					G_L^\text{ab} \arrow[r, "\operatorname{conj}_\sigma"] & G_{\sigma(L)}^\text{ab}
+				\end{tikzcd}
+				\]
+		\end{lem}
+
+\begin{proof}[Proof of Theorem \ref{thm:existence}]
+Fix $n>0$, and assume first that $\mu_n\subset K$. In this case, $(1)$ trivially holds: indeed, $\rho_{K,n}$ is a surjective map between two finite groups of the same order, and thus an isomorphism.
+
+Next, we may assume that $n$ is a prime power: indeed, looking at $(1)$ the group $H^1(K,\Z/n\Z)$ splits as a product of $H^1(K,\Z/p_i^{r_i}\Z)$, and analogously with the torsion parts of the other groups. In this case, $\Gal(K(\mu_n)|K)$ is cyclic (except for $p=2$...).
+
+Now, let $L=K(\mu_n)$. We prove that, if $(3)$ holds for $L$, then it holds for $K$. Indeed, let $H\subset K^\times$ be a subgroup containing $K^{\times n}$. Then, $H_L\coloneqq N^{-1}_{L|K}(H)$ is a subgroup of $L^\times$ containing $L^{\times n}$, and by assumption there exists a finite abelian extension $M|L$ such that $H_L=N_{M|L}(M^\times)$. Therefore, $H=N_{L|K}(H_L)=N_{M|K}(M^\times)$ by transitivity of the norm.
+
+However, we need to check that $M|K$ is abelian Galois: take some $\sigma \in G_K$. Since $L|K$ is Galois, $\sigma(L)=L$ and we may identify $\sigma$ with its image in $\Gal(L|K)$. Then, $\sigma(M)|L$ is abelian Galois, and $\Gal(\sigma(M)|L)\cong \Gal(M|L)$. But $\sigma(H_L)=H_L$ because $N_{L|K}(\sigma(x))=N_{L|K}(x)$ for all $x \in L^\times$, and so a previous corollary implies that $\sigma(M)=M$, which shows that $M|K$ is Galois. Finally, since $\Gal(M|K)/\Gal(M|L)\cong \Gal(L|K)$ is cyclic, if we show that $\Gal(M|L)\subset Z(\Gal(M|K))$ then $\Gal(M|K)$ must be abelian. Let $\sigma\in \Gal(M|K)$ and $\tau\in \Gal(M|L)$; we need to show that $\tau = \sigma \circ \tau \circ \sigma^{-1}$. Since $\rho_{M|L}:L^\times \to \Gal(M|L)$ is surjective, there is some $x\in L^\times$ such that $\tau=\rho_{M|L}(x)$. Extending $\sigma$ to an automorphism of $\overline{K}$ and recalling that $\sigma(L)=L$, by the Lemma we have
+\[
+	\sigma\tau\sigma^{-1} = \sigma \rho_{M|L}(x) \sigma^{-1} = \rho_{M|L}(\sigma(x)),
+\]
+so we have to prove $\rho_{M|L}(\sigma(x))=\rho_{M|L}(x)$. But $N_{L|K}(x\cdot \sigma(x)^{-1})=1\in H$, so $x\cdot \sigma(x)^{-1}\in H_L=N_{M|L}(M^\times)$, and thus $\rho_{M|L}(x\cdot \sigma(x)^{-1})=0$, which concludes the proof.
+\end{proof}
 
 \begin{thebibliography}{9}
 	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
