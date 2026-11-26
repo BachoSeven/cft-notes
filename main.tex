@@ -1427,8 +1427,7 @@ The following commutative diagram then follows from the fact that $K\otimes_\Q \
 			\Br(\Q) \arrow[r, "\oplus_{p} \operatorname{Res}"] & \bigoplus_{p\in S_\Q} \Br(\Q_p)
 	\end{tikzcd}
 \]
-Now, 
-
+Then, we can compute
 \begin{gather}
 		\sum_{v\in \Omega_K} (\chi_v, b)_v = \sum_{v\in S_K} (\chi_v, b)_v=\sum_{v\in S_K} \operatorname{inv}_v(\chi_v\cup \delta(b)) \\
 		= \sum_{p\in S_\Q} \operatorname{inv}_p\left(\operatorname{Cor}_{K|\Q}(\chi\cup \delta(b))\right).
@@ -1470,10 +1469,10 @@ Note that such a map exists since $N_{L|K}(C_L)\subset \ker(\widetilde{\rho}_{L|
 \[
 	\begin{tikzcd}
 		I_L \arrow[r, "\rho_L"] \arrow[d, "N_{L|K}"'] & G_L^\text{ab} \arrow[d, "\operatorname{Res}"] \\
-		I_K \arrow[r, "\rho_K"] & G_K^\text{ab}
+		I_K \arrow[r, "\rho_K"] & G_K^\text{ab},
 	\end{tikzcd}
 \]
-since the cokernel of the right vertical map is $\Gal(L|K)$.
+if we notice that the cokernel of the right vertical map is $\Gal(L|K)$.
 
 The theorem then follows from the following two facts, which we shall prove using analytic methods:
 \begin{itemize}
@@ -1481,11 +1480,13 @@ The theorem then follows from the following two facts, which we shall prove usin
 		\item $\left|C_K / N_{L|K}(C_L)\right| \leq [L:K]$.
 \end{itemize}
 
-A reformulation of the global reciprocity law is as follows: there eixsts an exact sequence
+\medskip
+
+\noindent An important reformulation of the global reciprocity law is as follows: there eixsts an exact sequence
 \[
 	K^\times /N_{L|K}(L^\times) \to I_K / N_{L|K}(I_L) \xrightarrow{\widetilde{\rho}_{L|K}} \Gal(L|K) \to 0,	
 \]
-and in the case where $L|K$ is cyclic, the first map is injective by the Hasse norm theorem, and since $I_K / N_{L|K}(I_L)\cong \oplus_{v\in \Omega_K} K_v^\times / N_{L_w|K_v}(L_w^\times)$, this gives a local-global principle for the norm map: an element $b\in K^\times$ is a norm if and only if it is a norm locally everywhere.
+and in the case where $L|K$ is cyclic, the first map is injective by the Hasse norm theorem, and since $I_K / N_{L|K}(I_L)\cong \bigoplus_{v\in \Omega_K} K_v^\times / N_{L_w|K_v}(L_w^\times)$, this gives a local-global principle for the norm map: an element $b\in K^\times$ is a norm if and only if it is a norm locally everywhere.
 
 % TODO Missing: Albert-Brauser-Hasse-Noether
 
