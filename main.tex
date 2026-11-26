@@ -1332,7 +1332,7 @@ Next, we prove the main theorem of local class field theory, which is a conseque
 		\end{tikzcd}
 		\]
 		Therefore, by the theorem $H=N_{L|K}(L^\times)$. The implication $(3)\implies (4)$ is trivial, and for $(4)\implies (2)$ notice that by the theorem $K^{\times n}=N_{L|K}(L^\times)$ gives us a diagram
-		% TODO this is not the diagram
+		% TODO this is not quite the right diagram
 		\[
 		\begin{tikzcd}
 			K^\times / K^{\times n} \arrow[r, "\sim"] \arrow[d, "\sim"'] & G_K^\text{ab}/n \arrow[d, "\sim"] \\
@@ -1364,6 +1364,130 @@ However, we need to check that $M|K$ is abelian Galois: take some $\sigma \in G_
 \]
 so we have to prove $\rho_{M|L}(\sigma(x))=\rho_{M|L}(x)$. But $N_{L|K}(x\cdot \sigma(x)^{-1})=1\in H$, so $x\cdot \sigma(x)^{-1}\in H_L=N_{M|L}(M^\times)$, and thus $\rho_{M|L}(x\cdot \sigma(x)^{-1})=0$, which concludes the proof.
 \end{proof}
+
+% TODO(?) missing: Kronecker-Weber [local+global], proof of global reciprocity law for K=Q.
+
+\section{Global Class Field Theory}
+Recall that the \emph{idele} group of a number field $K$ as
+\[
+	I_K \coloneqq \{(x_v)_v \in \prod_{v\in \Omega_K} K_v^\times : x_v\in U_v \text{ for all but finitely many }v\},
+\]
+where $U_v$ is the unit group of the local field $K_v$ and $\Omega_K$ is the set of all (finite or infinite) places of $K$. As the decomposition group $D_v\subset G_K^\text{ab}$ is canonically isomorphic to $G_{K_v}^\text{ab}$, we have a well-defined reciprocity map
+\[
+	\rho_K: I_K \to G_K^\text{ab}, \quad (\underline{a})_v \mapsto \sum_{v\in \Omega_K} \rho_{K_v}(a_v) \in G_K^\text{ab},
+\]
+and the global reciprocity law states that the composition
+\[
+	K^\times \hookrightarrow I_K \xrightarrow{\rho_K} G_K^\text{ab}
+\]
+is trivial, in other words:
+
+\[
+	\sum_{v\in \Omega_K} \rho_{K_v}(b) = 0 \in G_K^\text{ab} \quad \forall\, b\in K^\times.
+\]
+
+An equivalent (by dualizing) formulation of this law is given by the following corollary:
+\begin{cor}
+		For all characters $\chi: G_K^\text{ab} \to \Z/n\Z$ and all $b\in K^\times$, we have
+		\[
+			\sum_{v\in \Omega_K} (\chi_v, b)_v = 0,
+		\]
+		where $\chi_v$ is the restriction of $\chi$ to $G_{K_v}^\text{ab}$ and $(\cdot,\cdot)_v$ is the local Hilbert symbol of the local field $K_v$.
+\end{cor}
+Notice that, for $K=\Q$, the idele group is just
+\[
+	I_\Q = \widehat{U}_\Q \times \Q^\times \times \R_{>0},
+\]
+where $\widehat{U}_\Q = \prod_{p\text{ prime}} \Z_p^\times$ is the profinite completion of the unit group $\Z^\times$. Indeed, there exists a map from the RHS into $I_\Q$ which takes the product of the embeddings of each term. This is surjective, as for $\underline{a}=(a_p)_p\in I_\Q$ (here $p$ can be $\infty$) we can take $$c\coloneqq \operatorname{sgn}(a_\infty)\cdot \prod_{p\text{ prime}} p^{v_p(a_p)}\in \Q^\times,$$ and then $\underline{a}=c\cdot (c^{-1}a_p)$, where $c^{-1}a_p$ lies in $\widehat{U}_\Q \times \R_{>0}$. For injectivity, suppose that $(u_p)\cdot c \cdot a_\infty = 1 \in I_\Q$. Then, $u_p\cdot c = 1$ for all primes $p$, so $c$ must be a unit in $\Z$, so $c=\pm 1$ but $c\cdot a_\infty=1\implies c=1$ and $a_\infty=1$, so $u_p=1$ for all $p$ as well.
+
+\begin{cor}
+		The reciprocity map $\rho_\Q: I_\Q \to G_\Q^\text{ab}$ is surjective, and its kernel is $\Q^\times \cdot \R_{>0}\subset I_\Q$.
+\end{cor}
+\begin{proof}
+		We already know that the kernel contains the subgroup in question (since $\rho_\R: \R^\times / \R_{>0} \to \Gal(\C|\R)$ is an isomorphism). 
+		% TODO: diagramma in foto
+\end{proof}
+
+\begin{fact}
+		The Brauer group of $\Q$ is the union of the Brauer groups of its finite cyclic extensions.
+\end{fact}
+
+Using this, we can reduce the reciprocity law over a finite extension $K|\Q$ to the case $K=\Q$. We shall prove it via the formulation using characters, that is
+\[
+	\sum_{v\in \Omega_K} (\chi_v, b)_v = 0 \quad \forall\, b\in K^\times.
+\]
+Recall that $(\chi_v, b)_v=0$ for all but finitely many $v$ (this is how we know that the sum is well-defined). Thus, let $S_K\subset \Omega_K$ be a finite set of places such that $(\chi_v, b)_v=0$ for all $v\notin S_K$. Let $S_\Q\subset \Omega_\Q$ be the set of restrictions of places in $S_K$ to $\Q$; we may assume that given $p\in S_Q$, all places above $p$ are in $S_K$.
+
+% TODO about how the hilbert symbol is defined (sorce?)
+
+The following commutative diagram then follows from the fact that $K\otimes_\Q \Q_p \cong \prod_{v|p} K_v$:
+\[
+	\begin{tikzcd}
+			\Br(K) \arrow[r, "\oplus_{v} \operatorname{Res}"] \arrow[d, "\operatorname{Cor}"'] & \bigoplus_{v\in S_K} \Br(K_v) \arrow[d, "\sum_{v} \operatorname{Cor}"] \\
+			\Br(\Q) \arrow[r, "\oplus_{p} \operatorname{Res}"] & \bigoplus_{p\in S_\Q} \Br(\Q_p)
+	\end{tikzcd}
+\]
+Now, 
+
+\begin{gather}
+		\sum_{v\in \Omega_K} (\chi_v, b)_v = \sum_{v\in S_K} (\chi_v, b)_v=\sum_{v\in S_K} \operatorname{inv}_v(\chi_v\cup \delta(b)) \\
+		= \sum_{p\in S_\Q} \operatorname{inv}_p\left(\operatorname{Cor}_{K|\Q}(\chi\cup \delta(b))\right).
+\end{gather}
+Unfortunately, corestriction does not commute with the cup product, but by the above Fact there exists a finite cyclic extension $L|\Q$ such that $\operatorname{Cor}_{K|\Q}(\chi\cup \delta(b))\in \Br(L|\Q)=H^2(\Gal(L|\Q),L^\times)\cong \Q^\times / N_{L|\Q}(L^\times)$. If $\chi^\prime$ is the character whose kernel fixes $L$, then using previously established compatibilities of the cup-product with the cohomology of finite groups we can write any element of $\Br(L|\Q)$ as a cup product $\chi^\prime\cup \delta(b^\prime)$ for some $b^\prime\in \Q^\times$. Then, we can apply the reciprocity law for $\Q$ (again, in its form using characters) to conclude that
+\[
+		\sum_{p\in S_\Q} \operatorname{inv}_p(\operatorname{Cor}_{K|\Q}(\chi\cup \delta(b))) = \sum_{p\in S_\Q} \operatorname{inv}_p(\chi^\prime\cup \delta(b^\prime)) = 0,
+\]
+which proves the reciprocity law for $K$.
+
+\begin{defn}
+		The \emph{idele class group} of a number field $K$ is the quotient
+		\[
+			C_K \coloneqq I_K / K^\times.
+		\]
+\end{defn}
+The reciprocity law implies that $\rho_K$ induces a map $\widetilde{\rho}_K: C_K \to G_K^\text{ab}$, and if $L|K$ is a finite abelian extension we have a map 
+\[\widetilde{\rho}_{L|K}: C_K \to G_K^\text{ab} \twoheadrightarrow \Gal(L|K).\]
+
+\noindent Recall that the \emph{idele norm map} is the map
+\[
+	N_{L|K}: I_L \to I_K, \quad (x_w)_w \mapsto \left(\prod_{w|v} N_{L_w|K_v}(x_w)\right)_v,
+\]
+where $w|v$ means that $w$ is a place of $L$ lying above the place $v$ of $K$. With this definitions, we have a commutative diagram
+\[
+	\begin{tikzcd}
+			L^\times \arrow[r, hook] \arrow[d, "N_{L|K}"'] & I_L \arrow[d, "N_{L|K}"] \\
+			K^\times \arrow[r, hook] & I_K
+	\end{tikzcd}
+\]
+and thus $N_{L|K}$ induces a norm map $N_{L|K}: C_L \to C_K$. We have the following theorem:
+\begin{thm}[Global reciprocity isomorphism]
+		The map $\widetilde{\rho}_{L|K}$ induces an isomorphism
+		\[
+			\overline{\rho}_{L|K}: C_K / N_{L|K}(C_L) \xlongrightarrow{\sim} \Gal(L|K).
+		\]
+\end{thm}
+Note that such a map exists since $N_{L|K}(C_L)\subset \ker(\widetilde{\rho}_{L|K})$ by the (previously established) commutativity of the diagram
+\[
+	\begin{tikzcd}
+		I_L \arrow[r, "\rho_L"] \arrow[d, "N_{L|K}"'] & G_L^\text{ab} \arrow[d, "\operatorname{Res}"] \\
+		I_K \arrow[r, "\rho_K"] & G_K^\text{ab}
+	\end{tikzcd}
+\]
+since the cokernel of the right vertical map is $\Gal(L|K)$.
+
+The theorem then follows from the following two facts, which we shall prove using analytic methods:
+\begin{itemize}
+		\item The map $\widetilde{\rho}_{L|K}$ is surjective;
+		\item $\left|C_K / N_{L|K}(C_L)\right| \leq [L:K]$.
+\end{itemize}
+
+A reformulation of the global reciprocity law is as follows: there eixsts an exact sequence
+\[
+	K^\times /N_{L|K}(L^\times) \to I_K / N_{L|K}(I_L) \xrightarrow{\widetilde{\rho}_{L|K}} \Gal(L|K) \to 0,	
+\]
+and in the case where $L|K$ is cyclic, the first map is injective by the Hasse norm theorem, and since $I_K / N_{L|K}(I_L)\cong \oplus_{v\in \Omega_K} K_v^\times / N_{L_w|K_v}(L_w^\times)$, this gives a local-global principle for the norm map: an element $b\in K^\times$ is a norm if and only if it is a norm locally everywhere.
+
+% TODO Missing: Albert-Brauser-Hasse-Noether
 
 \begin{thebibliography}{9}
 	\bibitem{milne} James S. Milne, \emph{Class field theory}, \url{https://www.jmilne.org/math/CourseNotes/CFT.pdf}.
